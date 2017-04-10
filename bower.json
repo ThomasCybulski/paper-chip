@@ -1,0 +1,27 @@
+{
+  "name": "paper-chip",
+  "version": "1.0.0",
+  "authors": [
+    "Thomas Cybulski <info@thomas-cybulski.de>"
+  ],
+  "description": "Polymer Chips represent complex entities in small blocks, such as a contact.",
+  "keywords": [
+    "web-component",
+    "web-components",
+    "polymer",
+    "chip",
+    "paper-chip"
+  ],
+  "main": "paper-chip.html",
+  "license": "MIT",
+  "homepage": "https://github.com/ThomasCybulski/paper-chip",
+  "ignore": [
+    "/.*",
+    "/tests/"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^2.0.0-rc.3"
+  },
+  "devDependencies": {
+  }
+}
