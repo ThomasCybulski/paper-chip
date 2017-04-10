@@ -1,7 +1,52 @@
-<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="components/polymer/polymer.html">
+<link rel="import" href="components/iron-icons/iron-icons.html">
 
 <dom-module id="paper-chip">
   <template>
+    <style>
+            .chip {
+        display: inline-block;
+        height: 32px;
+        font-size: 13px;
+        font-weight: 500;
+        color: rgba(0,0,0,0.6);
+        line-height: 32px;
+        padding: 0 12px;
+        border-radius: 16px;
+        background-color: #e4e4e4;
+        margin-bottom: 5px;
+        margin-right: 5px;
+      }
+
+      .chip .close {
+            cursor: pointer;
+    float: right;
+    font-size: 16px;
+    line-height: 32px;
+    padding-left: 8px;
+      }
+
+      .chip img {
+    float: left;
+    margin: 0 8px 0 -12px;
+    height: 32px;
+    width: 32px;
+    border-radius: 50%;
+}
+    </style>
+
+    <div class="chip">Test</div>
+
+    <div class="chip">Test2
+      <iron-icon class="close" icon="icons:clear"></iron-icon>
+    </div>
+
+    <div class="chip">Test3
+      <img src="images/yuna.jpg" alt="Contact Person">
+      <iron-icon class="close" icon="icons:clear"></iron-icon>
+    </div>
+
+
   </template>
 
   <script>
