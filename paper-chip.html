@@ -6,7 +6,15 @@
 Material design: [Chips](https://material.io/guidelines/components/chips.html)
 
 `paper-chip`
-Polymer Chips represent complex entities in small blocks, such as a contact.
+Paper-chip's represent complex entities in small blocks, such as a contact.
+
+### Styling
+The following custom properties and mixins are available for styling:
+
+Custom property | Description | Default
+----------------|-------------|----------
+`--paper-chip-text-color` | The paper-chip text-color | `rgba(0, 0, 0, 0.6)`
+`--paper-chip-background-color` | The paper-chip background-color | `#e4e4e4`
 
 @demo demo/index.html
 -->
@@ -14,17 +22,18 @@ Polymer Chips represent complex entities in small blocks, such as a contact.
 <dom-module id="paper-chip">
   <template>
     <style>
+      
       .chip {
         font-family: "Roboto", sans-serif;
         display: inline-block;
         height: 32px;
         font-size: 13px;
         font-weight: 500;
-        color: rgba(0, 0, 0, 0.6);
+        color: var(--paper-chip-text-color, rgba(0, 0, 0, 0.6));
         line-height: 32px;
         padding: 0 12px;
         border-radius: 16px;
-        background-color: #e4e4e4;
+        background-color: var(--paper-chip-background-color, #e4e4e4);
         margin-bottom: 5px;
         margin-right: 5px;
       }
@@ -56,13 +65,13 @@ Polymer Chips represent complex entities in small blocks, such as a contact.
       }
     </style>
 
-    <div class="chip">[[text]]
+    <div class="chip">
+      <slot></slot>
       <img hidden$="[[_displayImage(img)]]" src="[[img]]" alt="Contact Person">
       <div hidden$="[[_displayCloseIcon(closable)]]" class="closeIcon" on-click="_remove">
         <iron-icon class="close" icon="icons:clear"></iron-icon>
       </div>
     </div>
-
 
   </template>
 
@@ -79,9 +88,6 @@ Polymer Chips represent complex entities in small blocks, such as a contact.
             type: String,
             value: ''
           },
-          text: {
-            type: String
-          },
           closable: {
             type: Boolean,
             value: false
@@ -91,10 +97,6 @@ Polymer Chips represent complex entities in small blocks, such as a contact.
 
       _remove(event) {
         this.parentNode.removeChild(this);
-      }
-
-      connectedCallback() {
-        super.connectedCallback();
       }
 
       _displayImage(img) {

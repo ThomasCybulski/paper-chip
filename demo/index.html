@@ -20,22 +20,31 @@
 
 <body>
   <div class="vertical-section-container centered">
-    <h3>Basic paper-chip demo</h3>
+    <h3>Basic paper-chip's</h3>
     <demo-snippet>
       <template>
-        <paper-chip text="Simple"></paper-chip>
+        <paper-chip>Simple</paper-chip>
+        <paper-chip closable>Closable</paper-chip>
+        <paper-chip img="images/avatar.png" closable>Closable and image</paper-chip>
       </template>
     </demo-snippet>
 
+        <h3>paper-chip's with custom styles</h3>
     <demo-snippet>
       <template>
-        <paper-chip closable text="Closable"></paper-chip>
-      </template>
-    </demo-snippet>
+        <paper-chip class="custom-text">Custom Text Color</paper-chip>
+        <paper-chip class="custom-background">Custom Background Color</paper-chip>
 
-    <demo-snippet>
-      <template>
-        <paper-chip img="images/avatar.png" closable text="Closable and image"></paper-chip>
+        <style is="custom-style">
+          paper-chip.custom-text {
+            --paper-chip-text-color: #4db6ac;
+          }
+
+          paper-chip.custom-background {
+            --paper-chip-background-color: #64b5f6;
+          }
+        </style>
+
       </template>
     </demo-snippet>
   </div>
