@@ -1,0 +1,9 @@
+{
+  "name": "paper-chip",
+  "version": "1.0.0",
+  "private": false,
+  "main": "paper-chip.html",
+  "repository": "https://github.com/ThomasCybulski/paper-chip",
+  "author": "Thomas Cybulski <info@thomas-cybulski.de>",
+  "license": "MIT"
+}

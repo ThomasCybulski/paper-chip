@@ -1,6 +1,6 @@
 # \<paper-chip\>
 
-Description
+Polymer Chips represent complex entities in small blocks, such as a contact.
 
 ## Install the Polymer-CLI
 

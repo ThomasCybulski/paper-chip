@@ -2,8 +2,11 @@
 <link rel="import" href="../iron-icons/iron-icons.html">
 
 <!--
+
+Material design: [Chips](https://material.io/guidelines/components/chips.html)
+
 `paper-chip`
-Description
+Polymer Chips represent complex entities in small blocks, such as a contact.
 
 @demo demo/index.html
 -->
@@ -26,10 +29,10 @@ Description
         margin-right: 5px;
       }
 
-      .chip .close {
+      .chip .closeIcon {
         --iron-icon-height: 16px;
         --iron-icon-width: 16px;
-        top: 3px;
+        top: -1px;
         position: relative;
         padding-left: 5px;
         cursor: pointer;
@@ -47,19 +50,15 @@ Description
         width: 32px;
         border-radius: 50%;
       }
+
+      [hidden] {
+        display: none;
+      }
     </style>
 
-    <div class="chip">Test</div>
-
-    <div class="chip">Test2
-      <div class="inline" on-tap="_remove">
-        <iron-icon class="close" icon="icons:clear"></iron-icon>
-      </div>
-    </div>
-
-    <div class="chip">Test3
-      <img src="images/yuna.jpg" alt="Contact Person">
-      <div class="inline" on-tap="_remove">
+    <div class="chip">[[text]]
+      <img hidden$="[[_displayImage(img)]]" src="[[img]]" alt="Contact Person">
+      <div hidden$="[[_displayCloseIcon(closable)]]" class="closeIcon" on-click="_remove">
         <iron-icon class="close" icon="icons:clear"></iron-icon>
       </div>
     </div>
@@ -75,17 +74,37 @@ Description
       }
 
       static get properties() {
-        return {};
+        return {
+          img: {
+            type: String,
+            value: ''
+          },
+          text: {
+            type: String
+          },
+          closable: {
+            type: Boolean,
+            value: false
+          }
+        };
       }
 
       _remove(event) {
-        event.stopPropagation();
-        console.log(event)
-        // var e = this.fire('remove', {}, {bubbles: false, cancelable: true});
-        // if (!e.defaultPrevented) {
-        //   this.parentNode.removeChild(this);
-        // }
+        this.parentNode.removeChild(this);
       }
+
+      connectedCallback() {
+        super.connectedCallback();
+      }
+
+      _displayImage(img) {
+        return img ? false : true;
+      }
+
+      _displayCloseIcon(closable) {
+        return closable ? false : true;
+      }
+
     }
     customElements.define(PaperChip.is, PaperChip);
   </script>
