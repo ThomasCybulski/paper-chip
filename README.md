@@ -14,7 +14,7 @@ First, make sure you have the [Polymer CLI](https://www.npmjs.com/package/polyme
 $ polymer serve
 ```
 
-## Example
+## Example: Basic paper-chip's
 
 ```
 <custom-element-demo>
@@ -27,15 +27,25 @@ $ polymer serve
   </template>
 </custom-element-demo>
 ```
-
-Basic paper-chip's
 ```html
 <paper-chip>Simple</paper-chip>
 <paper-chip closable>Closable</paper-chip>
-<paper-chip img="images/avatar.png" closable>Closable and image</paper-chip>
+<paper-chip img="demo/images/avatar.png" closable>Closable and image</paper-chip>
 ```
 
-paper-chip's with custom styles
+## Example: paper-chip's with custom styles
+
+```
+<custom-element-demo>
+  <template>
+    <script src="../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../poylmer/polymer.js"></script>
+    
+    <link rel="import" href="paper-chip.html">
+    <next-code-block></next-code-block>
+  </template>
+</custom-element-demo>
+```
 ```html
     <paper-chip class="custom-text">Custom Text Color</paper-chip>
     <paper-chip class="custom-background">Custom Background Color</paper-chip>
