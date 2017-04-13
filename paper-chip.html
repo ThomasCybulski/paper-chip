@@ -13,8 +13,10 @@ The following custom properties and mixins are available for styling:
 
 Custom property | Description | Default
 ----------------|-------------|----------
-`--paper-chip-text-color` | The paper-chip text-color | `rgba(0, 0, 0, 0.6)`
+`--paper-chip-label-color` | The paper-chip label-color | `rgba(0, 0, 0, 0.6)`
 `--paper-chip-background-color` | The paper-chip background-color | `#e4e4e4`
+`--paper-chip-avatar-background-color` | The paper-chip avatar background-color | `#757575`
+`--paper-chip-avatar-font-color` | The paper-chip avatar font and icon color | `#ffffff`
 
 @element paper-chip
 @demo demo/index.html
@@ -23,14 +25,13 @@ Custom property | Description | Default
 <dom-module id="paper-chip">
   <template>
     <style>
-      
       .chip {
         font-family: "Roboto", sans-serif;
         display: inline-block;
         height: 32px;
         font-size: 13px;
         font-weight: 500;
-        color: var(--paper-chip-text-color, rgba(0, 0, 0, 0.6));
+        color: var(--paper-chip-label-color, rgba(0, 0, 0, 0.6));
         line-height: 32px;
         padding: 0 12px;
         border-radius: 16px;
@@ -53,12 +54,27 @@ Custom property | Description | Default
         display: -webkit-inline-box;
       }
 
-      .chip img {
+      slot[name='avatar']::slotted(.chip-image) {
         float: left;
         margin: 0 8px 0 -12px;
         height: 32px;
         width: 32px;
         border-radius: 50%;
+      }
+
+      slot[name='avatar']::slotted(.chip-background) {
+        --iron-icon-height: 19px;
+        --iron-icon-width: 19px;
+        background: var(--paper-chip-avatar-background-color, #757575);
+        border-radius: 50%;
+        color: var(--paper-chip-avatar-font-color, #ffffff);
+        float: left;
+        font-weight: bold;
+        font-size: 16px;
+        height: 32px;
+        margin: 0 8px 0 -12px;
+        text-align: center;
+        width: 32px;
       }
 
       [hidden] {
@@ -67,8 +83,8 @@ Custom property | Description | Default
     </style>
 
     <div class="chip">
-      <slot></slot>
-      <img hidden$="[[_displayImage(img)]]" src="[[img]]" alt="Contact Person">
+      [[label]]
+      <slot name="avatar"></slot>
       <div hidden$="[[_displayCloseIcon(closable)]]" class="closeIcon" on-click="_remove">
         <iron-icon class="close" icon="icons:clear"></iron-icon>
       </div>
@@ -85,9 +101,9 @@ Custom property | Description | Default
 
       static get properties() {
         return {
-          img: {
+          label: {
             type: String,
-            value: ''
+            value: 'Default Label'
           },
           closable: {
             type: Boolean,
@@ -98,10 +114,6 @@ Custom property | Description | Default
 
       _remove(event) {
         this.parentNode.removeChild(this);
-      }
-
-      _displayImage(img) {
-        return img ? false : true;
       }
 
       _displayCloseIcon(closable) {
