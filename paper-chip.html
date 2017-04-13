@@ -1,15 +1,23 @@
 <link rel="import" href="components/polymer/polymer.html">
 <link rel="import" href="components/iron-icons/iron-icons.html">
 
+<!--
+`paper-chip`
+Description
+
+@demo demo/index.html
+-->
+
 <dom-module id="paper-chip">
   <template>
     <style>
-            .chip {
+      .chip {
+        font-family: "Roboto", sans-serif;
         display: inline-block;
         height: 32px;
         font-size: 13px;
         font-weight: 500;
-        color: rgba(0,0,0,0.6);
+        color: rgba(0, 0, 0, 0.6);
         line-height: 32px;
         padding: 0 12px;
         border-radius: 16px;
@@ -19,31 +27,41 @@
       }
 
       .chip .close {
-            cursor: pointer;
-    float: right;
-    font-size: 16px;
-    line-height: 32px;
-    padding-left: 8px;
+        --iron-icon-height: 16px;
+        --iron-icon-width: 16px;
+        top: 3px;
+        position: relative;
+        padding-left: 5px;
+        cursor: pointer;
+        float: right
+      }
+
+      .chip .inline {
+        display: -webkit-inline-box;
       }
 
       .chip img {
-    float: left;
-    margin: 0 8px 0 -12px;
-    height: 32px;
-    width: 32px;
-    border-radius: 50%;
-}
+        float: left;
+        margin: 0 8px 0 -12px;
+        height: 32px;
+        width: 32px;
+        border-radius: 50%;
+      }
     </style>
 
     <div class="chip">Test</div>
 
     <div class="chip">Test2
-      <iron-icon class="close" icon="icons:clear"></iron-icon>
+      <div class="inline" on-tap="_remove">
+        <iron-icon class="close" icon="icons:clear"></iron-icon>
+      </div>
     </div>
 
     <div class="chip">Test3
       <img src="images/yuna.jpg" alt="Contact Person">
-      <iron-icon class="close" icon="icons:clear"></iron-icon>
+      <div class="inline" on-tap="_remove">
+        <iron-icon class="close" icon="icons:clear"></iron-icon>
+      </div>
     </div>
 
 
@@ -51,11 +69,22 @@
 
   <script>
     class PaperChip extends Polymer.Element {
+
       static get is() {
         return 'paper-chip';
       }
+
       static get properties() {
         return {};
+      }
+
+      _remove(event) {
+        event.stopPropagation();
+        console.log(event)
+        // var e = this.fire('remove', {}, {bubbles: false, cancelable: true});
+        // if (!e.defaultPrevented) {
+        //   this.parentNode.removeChild(this);
+        // }
       }
     }
     customElements.define(PaperChip.is, PaperChip);
