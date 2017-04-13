@@ -1,8 +1,8 @@
 # \<paper-chip\>
 
-Polymer Chips represent complex entities in small blocks, such as a contact.
+Polymer 2.x Chips represent complex entities in small blocks, such as a contact.
 
-## Install the Polymer-CLI
+## Install the Polymer-CLI for Polymer 2
 
 First, make sure you have the [Polymer CLI](https://www.npmjs.com/package/polymer-cli) installed. Then run `polymer serve` to serve your application locally.
 
