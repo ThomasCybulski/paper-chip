@@ -1,5 +1,7 @@
 # \<paper-chip\>
 
+[![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg?style=flat-square)](https://www.webcomponents.org/element/ThomasCybulski/paper-chip)
+
 Polymer 2.x Chips represent complex entities in small blocks, such as a contact.
 
 ## Install the Polymer-CLI for Polymer 2
@@ -12,27 +14,37 @@ First, make sure you have the [Polymer CLI](https://www.npmjs.com/package/polyme
 $ polymer serve
 ```
 
-## Building Your Application
+## Example
 
+Basic paper-chip's
 ```
-$ polymer build
-```
-
-This will create a `build/` folder with `bundled/` and `unbundled/` sub-folders
-containing a bundled (Vulcanized) and unbundled builds, both run through HTML,
-CSS, and JS optimizers.
-
-You can serve the built versions by giving `polymer serve` a folder to serve
-from:
-
-```
-$ polymer serve build/bundled
+<custom-element-demo>
+  <template>
+    <paper-chip>Simple</paper-chip>
+    <paper-chip closable>Closable</paper-chip>
+    <paper-chip img="images/avatar.png" closable>Closable and image</paper-chip>
+  </template>
+</custom-element-demo>
 ```
 
-## Running Tests
-
+paper-chip's with custom styles
 ```
-$ polymer test
+<custom-element-demo>
+  <template>
+    <paper-chip class="custom-text">Custom Text Color</paper-chip>
+    <paper-chip class="custom-background">Custom Background Color</paper-chip>
+
+    <style is="custom-style">
+      paper-chip.custom-text {
+        --paper-chip-text-color: #4db6ac;
+    }
+
+    paper-chip.custom-background {
+      --paper-chip-background-color: #64b5f6;
+    }
+    </style>
+  </template>
+</custom-element-demo>
 ```
 
-Your application is already set up to be tested via [web-component-tester](https://github.com/Polymer/web-component-tester). Run `polymer test` to run your application's test suite locally.
+
