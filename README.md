@@ -16,21 +16,27 @@ $ polymer serve
 
 ## Example
 
-Basic paper-chip's
 ```
 <custom-element-demo>
   <template>
-    <paper-chip>Simple</paper-chip>
-    <paper-chip closable>Closable</paper-chip>
-    <paper-chip img="images/avatar.png" closable>Closable and image</paper-chip>
+    <script src="../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../poylmer/polymer.js"></script>
+    
+    <link rel="import" href="paper-chip.html">
+    <next-code-block></next-code-block>
   </template>
 </custom-element-demo>
 ```
 
-paper-chip's with custom styles
+Basic paper-chip's
+```html
+<paper-chip>Simple</paper-chip>
+<paper-chip closable>Closable</paper-chip>
+<paper-chip img="images/avatar.png" closable>Closable and image</paper-chip>
 ```
-<custom-element-demo>
-  <template>
+
+paper-chip's with custom styles
+```html
     <paper-chip class="custom-text">Custom Text Color</paper-chip>
     <paper-chip class="custom-background">Custom Background Color</paper-chip>
 
@@ -42,9 +48,6 @@ paper-chip's with custom styles
     paper-chip.custom-background {
       --paper-chip-background-color: #64b5f6;
     }
-    </style>
-  </template>
-</custom-element-demo>
 ```
 
 
