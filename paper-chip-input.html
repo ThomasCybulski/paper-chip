@@ -17,16 +17,14 @@ Paper-chip's represent complex entities in small blocks, such as a contact.
 <dom-module id="paper-chip-input">
     <template>
         <style>
-
-            [hidden] {
-                display: none;
-            }
+            
         </style>
 
-        <paper-input label="+Tag">
-            <slot name="tagInput" slot="preffix"></slot>
+        <paper-input value="{{_value}}" label="[[label]]" on-keydown="_keydown">
+            <slot id="slot" name="input" slot="prefix"></slot>
+            <slot id="slot2" name="input2" slot="prefix"></slot>
         </paper-input>
-        
+
     </template>
 
     <script>
@@ -37,7 +35,40 @@ Paper-chip's represent complex entities in small blocks, such as a contact.
             }
 
             static get properties() {
-                return {};
+                return {
+                    label: {
+                        type: String,
+                        value: ''
+                    },
+                    _value: {
+                        type: String
+                    },
+                    _inputStore: {
+                        type: Array,
+                        value: []
+                    }
+                };
+            }
+
+            _keydown(event) {
+                const keyCode_enter = '13';
+                if (event.keyCode == keyCode_enter) {
+                    this._addTag(this._value);
+                    this._value = '';
+                }
+            }
+
+            _addTag(name) {
+                if (this._inputStore.indexOf(name) == -1) {
+                    this.push('_inputStore', name);
+
+                    var tag = document.createElement("paper-chip");
+                    var label = document.createAttribute("label");
+                    label.value = this._value;
+                    tag.setAttributeNode(label);
+
+                    this.$.slot2.appendChild(tag);
+                }
             }
 
         }
