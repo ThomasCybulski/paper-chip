@@ -1,9 +1,19 @@
 {
   "name": "paper-chip",
-  "version": "1.0.0",
+  "version": "1.0.4",
   "private": false,
   "main": "paper-chip.html",
   "repository": "https://github.com/ThomasCybulski/paper-chip",
   "author": "Thomas Cybulski <info@thomas-cybulski.de>",
-  "license": "MIT"
+  "license": "MIT",
+  "keywords": [
+    "polymer",
+    "WebComponent",
+    "paper-chip",
+    "chips"
+  ],
+  "devDependencies": {
+    "bower": "^1.8.0",
+    "polymer-cli@next": "0.18.0-pre.15"
+  }
 }

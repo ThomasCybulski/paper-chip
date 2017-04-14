@@ -1,0 +1,46 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-icons/iron-icons.html">
+<link rel="import" href="../paper-input/paper-input.html">
+<link rel="import" href="paper-chip.html">
+
+<!--
+
+Material design: [Chips](https://material.io/guidelines/components/chips.html)
+
+`paper-chip-input`
+Paper-chip's represent complex entities in small blocks, such as a contact.
+
+@element paper-chip-input
+@demo demo/index.html
+-->
+
+<dom-module id="paper-chip-input">
+    <template>
+        <style>
+
+            [hidden] {
+                display: none;
+            }
+        </style>
+
+        <paper-input label="+Tag">
+            <slot name="tagInput" slot="preffix"></slot>
+        </paper-input>
+        
+    </template>
+
+    <script>
+        class PaperChipInput extends Polymer.Element {
+
+            static get is() {
+                return 'paper-chip-input';
+            }
+
+            static get properties() {
+                return {};
+            }
+
+        }
+        customElements.define(PaperChipInput.is, PaperChipInput);
+    </script>
+</dom-module>
