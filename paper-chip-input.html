@@ -1,0 +1,108 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-icons/iron-icons.html">
+<link rel="import" href="../paper-input/paper-input.html">
+<link rel="import" href="paper-chip.html">
+
+<!--
+
+Material design: [Chips](https://material.io/guidelines/components/chips.html)
+
+`paper-chip-input`
+Paper-chip's represent complex entities in small blocks, such as a contact.
+
+@element paper-chip-input
+@demo demo/index.html
+-->
+
+<dom-module id="paper-chip-input">
+    <template>
+        <style>
+
+        </style>
+
+        <paper-input value="{{_value}}" label="[[label]]" on-keydown="_keydown" mutable-data>
+            <slot id="slot" name="input" slot="prefix"></slot>
+            <slot id="slot2" name="input2" slot="prefix"></slot>
+        </paper-input>
+
+    </template>
+
+    <script>
+        class PaperChipInput extends Polymer.Element {
+
+            constructor() {
+                super();
+            }
+
+            static get is() {
+                return 'paper-chip-input';
+            }
+
+            static get properties() {
+                return {
+                    items: {
+                        type: Array,
+                        value: function () {
+                            return [];
+                        },
+                        observer: '_computeItems'
+                    },
+                    closable: {
+                        type: Boolean,
+                        value: false
+                    },
+                    label: {
+                        type: String,
+                        value: ''
+                    },
+                    _value: {
+                        type: String
+                    },
+                    _inputStore: {
+                        type: Array,
+                        value: function () {
+                            return [];
+                        }
+                    }
+                };
+            }
+
+            _keydown(event) {
+                const keyCode_enter = '13';
+                if (event.keyCode == keyCode_enter) {
+                    this._addTag(this._value);
+                    this._value = '';
+                }
+            }
+
+            _addTag(name) {
+                if (this._inputStore.indexOf(name) == -1) {
+                    this.push('_inputStore', name);
+
+                    var tag = document.createElement("paper-chip");
+                    var label = document.createAttribute("label");
+                    label.value = name;
+                    tag.setAttributeNode(label);
+
+                    if (this.closable) {
+                        var closable = document.createAttribute("closable");
+                        tag.setAttributeNode(closable);
+                    }
+
+                    this.$.slot2.appendChild(tag);
+                }
+            }
+
+            _computeItems() {
+                this.items.forEach(function (value) {
+                    this._addTag(value);
+                }.bind(this));
+            }
+
+            connectedCallback() {
+                super.connectedCallback();
+            }
+        }
+        window.customElements.define(PaperChipInput.is, PaperChipInput);
+    </script>
+</dom-module>

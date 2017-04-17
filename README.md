@@ -1,6 +1,6 @@
 # \<paper-chip\>
 
-[![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg?style=flat-square)](https://www.webcomponents.org/element/ThomasCybulski/paper-chip)
+[![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg?style=flat-square)](https://www.webcomponents.org/element/ThomasCybulski/paper-chip) [![Dependency Status](https://gemnasium.com/badges/github.com/ThomasCybulski/paper-chip.svg)](https://gemnasium.com/github.com/ThomasCybulski/paper-chip)
 
 Polymer 2.x Chips represent complex entities in small blocks, such as a contact.
 
