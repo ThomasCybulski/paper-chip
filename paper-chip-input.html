@@ -17,10 +17,10 @@ Paper-chip's represent complex entities in small blocks, such as a contact.
 <dom-module id="paper-chip-input">
     <template>
         <style>
-            
+
         </style>
 
-        <paper-input value="{{_value}}" label="[[label]]" on-keydown="_keydown">
+        <paper-input value="{{_value}}" label="[[label]]" on-keydown="_keydown" mutable-data>
             <slot id="slot" name="input" slot="prefix"></slot>
             <slot id="slot2" name="input2" slot="prefix"></slot>
         </paper-input>
@@ -30,12 +30,27 @@ Paper-chip's represent complex entities in small blocks, such as a contact.
     <script>
         class PaperChipInput extends Polymer.Element {
 
+            constructor() {
+                super();
+            }
+
             static get is() {
                 return 'paper-chip-input';
             }
 
             static get properties() {
                 return {
+                    items: {
+                        type: Array,
+                        value: function () {
+                            return [];
+                        },
+                        observer: '_computeItems'
+                    },
+                    closable: {
+                        type: Boolean,
+                        value: false
+                    },
                     label: {
                         type: String,
                         value: ''
@@ -45,7 +60,9 @@ Paper-chip's represent complex entities in small blocks, such as a contact.
                     },
                     _inputStore: {
                         type: Array,
-                        value: []
+                        value: function () {
+                            return [];
+                        }
                     }
                 };
             }
@@ -64,14 +81,28 @@ Paper-chip's represent complex entities in small blocks, such as a contact.
 
                     var tag = document.createElement("paper-chip");
                     var label = document.createAttribute("label");
-                    label.value = this._value;
+                    label.value = name;
                     tag.setAttributeNode(label);
+
+                    if (this.closable) {
+                        var closable = document.createAttribute("closable");
+                        tag.setAttributeNode(closable);
+                    }
 
                     this.$.slot2.appendChild(tag);
                 }
             }
 
+            _computeItems() {
+                this.items.forEach(function (value) {
+                    this._addTag(value);
+                }.bind(this));
+            }
+
+            connectedCallback() {
+                super.connectedCallback();
+            }
         }
-        customElements.define(PaperChipInput.is, PaperChipInput);
+        window.customElements.define(PaperChipInput.is, PaperChipInput);
     </script>
 </dom-module>
