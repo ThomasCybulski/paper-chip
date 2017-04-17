@@ -102,4 +102,29 @@ $ polymer serve
 </style>
 ```
 
+## Example: Use tags in an input field
+
+<!---
+```
+<custom-element-demo>
+  <template>
+    <script src="../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../polymer/polymer.js"></script>
+    
+    <link rel="import" href="paper-chip-input.html">
+    <link rel="import" href="paper-chip.html">
+    <next-code-block></next-code-block>
+  </template>
+</custom-element-demo>
+```
+-->
+```html
+<paper-chip-input label="+Tag (Enter)" items='["one", "two", "three"]' closable></paper-chip-input>
+
+<paper-chip-input label="+Tag (Enter)">
+    <paper-chip label="Default Tag" slot="input"></paper-chip>
+    <paper-chip label="Default Tag Closbale" closable slot="input"></paper-chip>
+</paper-chip-input>
+```
+
 
