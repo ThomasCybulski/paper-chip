@@ -113,7 +113,15 @@ Custom property | Description | Default
       }
 
       _remove(event) {
-        this.parentNode.removeChild(this);
+        if (this.slot == 'input') {
+          this.parentNode.removeChild(this);
+        } else {
+          this.dispatchEvent(new CustomEvent('chip-removed', {
+            detail: {
+              'chipLabel': this.label
+            }
+          }));
+        }
       }
 
       _displayCloseIcon(closable) {

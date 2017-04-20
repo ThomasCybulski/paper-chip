@@ -2,6 +2,8 @@
 
 [![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg?style=flat-square)](https://www.webcomponents.org/element/ThomasCybulski/paper-chip) [![Dependency Status](https://gemnasium.com/badges/github.com/ThomasCybulski/paper-chip.svg)](https://gemnasium.com/github.com/ThomasCybulski/paper-chip)
 
+[DEMO](https://thomascybulski.github.io/paper-chip/demo/index.html)
+
 Polymer 2.x Chips represent complex entities in small blocks, such as a contact.
 
 ## Install the Polymer-CLI for Polymer 2

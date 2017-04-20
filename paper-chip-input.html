@@ -20,9 +20,16 @@ Paper-chip's represent complex entities in small blocks, such as a contact.
 
         </style>
 
-        <paper-input value="{{_value}}" label="[[label]]" on-keydown="_keydown" mutable-data>
+        <paper-input value="{{_value}}" label="[[label]]" on-keydown="_keydown">
             <slot id="slot" name="input" slot="prefix"></slot>
-            <slot id="slot2" name="input2" slot="prefix"></slot>
+            <slot id="slot2" name="input2" slot="prefix">
+                <dom-repeat items="[[items]]">
+                    <template>
+                        [[item.name]]
+                        <paper-chip id="paper-chip-[[item]]-[[index]]" label="[[item]]" closable$="[[closable]]" on-chip-removed="_removeChip"></paper-chip>
+                    </template>
+                </dom-repeat>
+            </slot>
         </paper-input>
 
     </template>
@@ -44,8 +51,7 @@ Paper-chip's represent complex entities in small blocks, such as a contact.
                         type: Array,
                         value: function () {
                             return [];
-                        },
-                        observer: '_computeItems'
+                        }
                     },
                     closable: {
                         type: Boolean,
@@ -57,46 +63,52 @@ Paper-chip's represent complex entities in small blocks, such as a contact.
                     },
                     _value: {
                         type: String
-                    },
-                    _inputStore: {
-                        type: Array,
-                        value: function () {
-                            return [];
-                        }
                     }
                 };
             }
 
             _keydown(event) {
+                const keyCode_backspace = '8';
                 const keyCode_enter = '13';
-                if (event.keyCode == keyCode_enter) {
-                    this._addTag(this._value);
+
+                if (event.keyCode == keyCode_backspace && this.items.length != 0) {
+                    this._removeLastItem();
+                }
+
+                if (event.keyCode == keyCode_backspace && this.$.slot.assignedNodes().length > 0) {
+                    let lastPaperChipIndex = 0;
+                    for (var i = 0; i < this.childNodes.length; i++) {
+                        if (this.childNodes[i].tagName == 'PAPER-CHIP') {
+                            lastPaperChipIndex = i;
+                        }
+                    }
+
+                    this.removeChild(this.childNodes[lastPaperChipIndex]);
+                }
+
+                if (event.keyCode == keyCode_enter && this._value != '' && this._value != undefined) {
+                    this._saveTag(this._value);
                     this._value = '';
                 }
             }
 
-            _addTag(name) {
-                if (this._inputStore.indexOf(name) == -1) {
-                    this.push('_inputStore', name);
-
-                    var tag = document.createElement("paper-chip");
-                    var label = document.createAttribute("label");
-                    label.value = name;
-                    tag.setAttributeNode(label);
-
-                    if (this.closable) {
-                        var closable = document.createAttribute("closable");
-                        tag.setAttributeNode(closable);
-                    }
-
-                    this.$.slot2.appendChild(tag);
+            _saveTag(name) {
+                if (this.items.indexOf(name) == -1) {
+                    this.push('items', name);
                 }
             }
 
-            _computeItems() {
-                this.items.forEach(function (value) {
-                    this._addTag(value);
-                }.bind(this));
+            _removeChip(event) {
+                var index = this.items.indexOf(event.detail.chipLabel);
+                if (index != -1) {
+                    this.splice('items', index, 1);
+                }
+            }
+
+            _removeLastItem() {
+                if (this.items.length != 0) {
+                    this.splice('items', -1, 1);
+                }
             }
 
             connectedCallback() {
