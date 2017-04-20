@@ -121,11 +121,11 @@ $ polymer serve
 ```
 -->
 ```html
-<paper-chip-input label="+Tag (Enter)" items='["one", "two", "three"]' closable></paper-chip-input>
+<paper-chip-input label="+Add (Enter) -Delete (Backspace)" items='["one", "two", "three"]' closable></paper-chip-input>
 
-<paper-chip-input label="+Tag (Enter)">
-    <paper-chip label="Default Tag" slot="input"></paper-chip>
-    <paper-chip label="Default Tag Closbale" closable slot="input"></paper-chip>
+<paper-chip-input label="+Add (Enter) -Delete (Backspace)">
+  <paper-chip label="Default Tag" slot="input"></paper-chip>
+  <paper-chip label="Default Tag Closbale" closable slot="input"></paper-chip>
 </paper-chip-input>
 ```
 
