@@ -71,18 +71,20 @@ Paper-chip's represent complex entities in small blocks, such as a contact.
                 const keyCode_backspace = '8';
                 const keyCode_enter = '13';
 
-                if (event.keyCode == keyCode_backspace && this.items.length != 0) {
+                if (event.keyCode == keyCode_backspace && this.items.length != 0 &&
+                    (this._value == '' || this._value == undefined)) {
                     this._removeLastItem();
-                }
-
-                if (event.keyCode == keyCode_backspace && this.$.slot.assignedNodes().length > 0) {
+                } else if (event.keyCode == keyCode_backspace && this.$.slot.assignedNodes().length > 0 &&
+                    (this._value == '' || this._value == undefined)) {
+                    var distributedNodes = this.$.slot.assignedNodes({
+                        flatten: true
+                    })
                     let lastPaperChipIndex = 0;
                     for (var i = 0; i < this.childNodes.length; i++) {
                         if (this.childNodes[i].tagName == 'PAPER-CHIP') {
                             lastPaperChipIndex = i;
                         }
                     }
-
                     this.removeChild(this.childNodes[lastPaperChipIndex]);
                 }
 
@@ -109,6 +111,16 @@ Paper-chip's represent complex entities in small blocks, such as a contact.
                 if (this.items.length != 0) {
                     this.splice('items', -1, 1);
                 }
+            }
+
+            _getLastPaperChipPosition(childNodes) {
+                let lastPaperChipIndex = 0;
+                for (var i = 0; i < childNodes.length; i++) {
+                    if (childNodes[i].tagName == 'PAPER-CHIP') {
+                        lastPaperChipIndex = i;
+                    }
+                }
+                return lastPaperChipIndex;
             }
 
             connectedCallback() {
