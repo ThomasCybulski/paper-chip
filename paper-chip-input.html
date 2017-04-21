@@ -74,31 +74,19 @@ Paper-chip's represent complex entities in small blocks, such as a contact.
                 if (event.keyCode == keyCode_backspace && this.items.length != 0 &&
                     (this._value == '' || this._value == undefined)) {
                     this._removeLastItem();
-                }
-
-                if (event.keyCode == keyCode_backspace && this.$.slot.assignedNodes().length > 0 &&
+                } else if (event.keyCode == keyCode_backspace && this.$.slot.assignedNodes().length > 0 &&
                     (this._value == '' || this._value == undefined)) {
                     var distributedNodes = this.$.slot.assignedNodes({
                         flatten: true
                     })
-                    // if (this._getLastPaperChipPosition(distributedNodes) > 0) {
-                    //     console.log(this.$.slot2.childNodes)
-                    //     this.$.slot2.removeChild(this.$.slot2.childNodes[this._getLastPaperChipPosition(distributedNodes)]);
-                    // } else {
-                    //     console.log("else")
-                    // }
-                    // // console.log(this);
-                    // console.log(this.childNodes)
                     let lastPaperChipIndex = 0;
                     for (var i = 0; i < this.childNodes.length; i++) {
                         if (this.childNodes[i].tagName == 'PAPER-CHIP') {
                             lastPaperChipIndex = i;
                         }
                     }
-                    console.log(lastPaperChipIndex)
-
-                    this.childNodes.removeChild(this.childNodes[lastPaperChipIndex]);
-                    }
+                    this.removeChild(this.childNodes[lastPaperChipIndex]);
+                }
 
                 if (event.keyCode == keyCode_enter && this._value != '' && this._value != undefined) {
                     this._saveTag(this._value);
@@ -107,11 +95,8 @@ Paper-chip's represent complex entities in small blocks, such as a contact.
             }
 
             _saveTag(name) {
-                console.log(this.items)
                 if (this.items.indexOf(name) == -1) {
-                    // console.log("save")
                     this.push('items', name);
-                    // console.log(this.items)
                 }
             }
 
