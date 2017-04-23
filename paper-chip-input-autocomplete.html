@@ -1,0 +1,134 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../paper-input/paper-input.html">
+<link rel="import" href="../paper-item/paper-item.html">
+<link rel="import" href="../paper-listbox/paper-listbox.html">
+<link rel="import" href="../paper-material/paper-material.html">
+<link rel="import" href="../paper-ripple/paper-ripple.html">
+<link rel="import" href="paper-chip-input.html">
+
+<!--
+
+Material design: [Chips](https://material.io/guidelines/components/chips.html)
+
+`paper-chip-input-autocomplete`
+Paper-chip's represent complex entities in small blocks, such as a contact.
+
+@element paper-chip-input-autocomplete
+@demo demo/index.html
+-->
+
+<dom-module id="paper-chip-input-autocomplete">
+    <template>
+        <style>
+            paper-item:hover {
+                background: #eee;
+                color: #333;
+                cursor: pointer;
+            }
+
+            paper-item.active,
+             :host ::content paper-item.active {
+                background: #eee;
+                color: #333;
+            }
+
+            .hide {
+                display: none;
+            }
+
+            .autocomplete {
+                width: var(--autocomplete-width, 50%);
+                position: absolute;
+                background: white;
+                z-index: 1;
+            }
+        </style>
+        <div>
+            <paper-input id="paperInput" label="Test" on-keyup="_findItems" value="{{_inputValue}}"></paper-input>
+        </div>
+
+        <paper-material class$="[[_autocompleteClass]]" elevation="1">
+            <dom-repeat items="[[_filteredSource]]">
+                <template>
+                    <paper-item on-tap="_selectPaperItem">[[item.text]]
+                        <paper-ripple></paper-ripple>
+                    </paper-item>
+                </template>
+            </dom-repeat>
+        </paper-material>
+
+    </template>
+
+    <script>
+        class PaperChipInputAutocomplete extends Polymer.Element {
+
+            static get is() {
+                return 'paper-chip-input-autocomplete';
+            }
+
+            static get properties() {
+                return {
+                    minSearchStringLength: {
+                        type: Number,
+                        value: 2
+                    },
+                    source: {
+                        type: Array,
+                        value: function () {
+                            return [];
+                        }
+                    },
+                    _filteredSource: {
+                        type: Array,
+                        value: function () {
+                            return [];
+                        }
+                    },
+                    _foundItems: {
+                        type: Boolean,
+                        value: true
+                    },
+                    _inputValue: {
+                        type: String,
+                        value: ""
+                    },
+                    _autocompleteClass: {
+                        type: String,
+                        value: "hide"
+                    },
+                    _paperInputWidth: {
+                        type: Number
+                    }
+                };
+            }
+
+            _findItems(event) {
+
+                if (this._inputValue.length == 0) {
+                    this._autocompleteClass = "hide";
+                }
+
+                if (this._inputValue.length >= this.minSearchStringLength) {
+
+                    this.updateStyles({
+                        '--autocomplete-width': this.$.paperInput.offsetWidth + 'px',
+                    });
+
+                    this._filteredSource = this.source.filter(element => element.text.toLowerCase().includes(
+                        this._inputValue.toLowerCase()));
+                    this._autocompleteClass = "autocomplete";
+                    this._foundItems = true;
+
+                } else {
+                    this._autocompleteClass = "hide";
+                }
+            }
+
+            _selectPaperItem() {
+                
+            }
+
+        }
+        window.customElements.define(PaperChipInputAutocomplete.is, PaperChipInputAutocomplete);
+    </script>
+</dom-module>

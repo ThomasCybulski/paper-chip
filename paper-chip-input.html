@@ -37,10 +37,6 @@ Paper-chip's represent complex entities in small blocks, such as a contact.
     <script>
         class PaperChipInput extends Polymer.Element {
 
-            constructor() {
-                super();
-            }
-
             static get is() {
                 return 'paper-chip-input';
             }
@@ -123,9 +119,6 @@ Paper-chip's represent complex entities in small blocks, such as a contact.
                 return lastPaperChipIndex;
             }
 
-            connectedCallback() {
-                super.connectedCallback();
-            }
         }
         window.customElements.define(PaperChipInput.is, PaperChipInput);
     </script>
