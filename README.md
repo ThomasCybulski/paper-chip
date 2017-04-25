@@ -138,8 +138,7 @@ $ polymer serve
     <script src="../webcomponentsjs/webcomponents-lite.js"></script>
     <script src="../polymer/polymer.js"></script>
     
-    <link rel="import" href="paper-chip-input.html">
-    <link rel="import" href="paper-chip.html">
+    <link rel="import" href="paper-chip-input-autocomplete.html">
     <next-code-block></next-code-block>
   </template>
 
