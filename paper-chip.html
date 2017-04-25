@@ -113,14 +113,14 @@ Custom property | Description | Default
       }
 
       _remove(event) {
-        if (this.slot == 'input') {
-          this.parentNode.removeChild(this);
-        } else {
+        if (this.parentNode.id == 'slot2') {
           this.dispatchEvent(new CustomEvent('chip-removed', {
             detail: {
               'chipLabel': this.label
             }
           }));
+        } else {
+          this.parentNode.removeChild(this);
         }
       }
 
