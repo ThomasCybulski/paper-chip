@@ -1,9 +1,10 @@
 <link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../paper-styles/paper-styles.html">
 <link rel="import" href="../iron-icons/iron-icons.html">
 
 <!--
 
-Material design: [Chips](https://material.io/guidelines/components/chips.html)
+Material design: [Chips](https://material.io/guidelines/components/chips.html#chips-specs)
 
 `paper-chip`
 Paper-chip's represent complex entities in small blocks, such as a contact.
@@ -38,6 +39,15 @@ Custom property | Description | Default
         background-color: var(--paper-chip-background-color, #e4e4e4);
         margin-bottom: 5px;
         margin-right: 5px;
+      }
+
+      .chip:hover {
+        -moz-transition: all .2s ease-in;
+        -o-transition: all .2s ease-in;
+        -webkit-transition: all .2s ease-in;
+        transition: all .2s ease-in;
+        @apply --shadow-elevation-2dp;
+        cursor: default;
       }
 
       .chip .closeIcon {

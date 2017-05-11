@@ -16,6 +16,7 @@
     "paper-listbox": "PolymerElements/paper-listbox#2.0-preview",
     "paper-material": "polymerelements/paper-material#2.0-preview",
     "paper-ripple": "polymerelements/paper-ripple#2.0-preview",
+    "paper-styles": "polymerelements/paper-styles#2.0-preview",
     "iron-icons": "PolymerElements/iron-icons#2.0-preview"
   },
   "devDependencies": {
