@@ -6,6 +6,11 @@
   <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
 
   <title>paper-chip demo</title>
+  
+  <script
+    src="https://code.jquery.com/jquery-3.2.1.min.js"
+    integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+    crossorigin="anonymous"></script>
 
   <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
 
@@ -38,7 +43,7 @@
         <paper-chip label="Closable" closable></paper-chip>
 
         <paper-chip label="Closable and image" closable>
-          <img class="chip-image" slot="avatar" src="images/avatar.png" alt="Contact Person">
+          <img class="chip-image" slot="avatar" src="avatar.png" alt="Contact Person">
         </paper-chip>
 
         <paper-chip label="Closable and icon" closable>
@@ -118,6 +123,11 @@
   </div>
 
   <script>
+
+    $(document).ready(function(){
+        $(this).scrollTop(0);
+    });
+
     var states = [{
         "text": "Alabama",
         "value": "AL"
