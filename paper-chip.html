@@ -42,12 +42,17 @@ Custom property | Description | Default
       }
 
       .chip:hover {
-        -moz-transition: all .2s ease-in;
-        -o-transition: all .2s ease-in;
-        -webkit-transition: all .2s ease-in;
-        transition: all .2s ease-in;
         @apply --shadow-elevation-2dp;
         cursor: default;
+      }
+
+      .unselectable {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
       }
 
       .chip:active {
@@ -96,7 +101,7 @@ Custom property | Description | Default
       }
     </style>
 
-    <div class="chip">
+    <div class="chip unselectable">
       [[label]]
       <slot name="avatar"></slot>
       <div hidden$="[[_displayCloseIcon(closable)]]" class="closeIcon" on-click="_remove">
