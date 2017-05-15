@@ -132,22 +132,14 @@ Custom property | Description | Default
       }
 
       _remove(event) {
-        if (this.parentNode.id == 'slot2') {
-          this.dispatchEvent(new CustomEvent('chip-removed', {
-            detail: {
-              'chipLabel': this.label
-            },
-            composed: true,
-            bubbles: true
-          }));
-        } else {
-          this.dispatchEvent(new CustomEvent('chip-removed', {
-            detail: {
-              'chipLabel': this.label
-            },
-            composed: true,
-            bubbles: true
-          }));
+        this.dispatchEvent(new CustomEvent('chip-removed', {
+          detail: {
+            'chipLabel': this.label
+          },
+          composed: true,
+          bubbles: true
+        }));
+        if (this.parentNode.id != 'slot2') {
           this.parentNode.removeChild(this);
         }
       }

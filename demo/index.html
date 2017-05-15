@@ -6,10 +6,8 @@
   <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
 
   <title>paper-chip demo</title>
-  
-  <script
-    src="https://code.jquery.com/jquery-3.2.1.min.js"
-    integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
     crossorigin="anonymous"></script>
 
   <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
@@ -117,9 +115,9 @@
     <demo-snippet>
       <template>
 
-        <paper-chip-input-autocomplete id="paper-chip-input-autocomplete"  
-          label="+Add (Enter) -Delete (Backspace)" 
-          closable></paper-chip-input-autocomplete>
+        <paper-chip-input-autocomplete id="paper-chip-input-autocomplete" 
+        label="+Add (Enter) -Delete (Backspace)" 
+        closable></paper-chip-input-autocomplete>
 
       </template>
     </demo-snippet>
@@ -127,19 +125,28 @@
   </div>
 
   <script>
-
-    $(document).ready(function(){
-        $(this).scrollTop(0);
+    $(document).ready(function () {
+      $(this).scrollTop(0);
     });
 
-		var allPaperChips = document.querySelectorAll('paper-chip[closable]')
+    var allPaperChips = document.querySelectorAll('paper-chip[closable]')
 
-    allPaperChips.forEach(function(paperChip) {
-        paperChip.addEventListener("chip-removed", function() {
-            var toast = document.querySelector('paper-toast');
-            toast.text = 'paper-chip with label "' + paperChip.label + '" was removed';
-            toast.open();
-        });
+    allPaperChips.forEach(function (paperChip) {
+      paperChip.addEventListener("chip-removed", function () {
+        var toast = document.querySelector('paper-toast');
+        toast.text = 'Removed paper-chip with label "' + paperChip.label + '"';
+        toast.open();
+      });
+    });
+
+    var allPaperChipInputAutocomplete = document.querySelectorAll('paper-chip-input-autocomplete[closable]')
+
+    allPaperChipInputAutocomplete.forEach(function (paperChipInputAutocomplete) {
+      paperChipInputAutocomplete.addEventListener("chip-removed", function (event) {
+        var toast = document.querySelector('paper-toast');
+        toast.text = 'Removed paper-chip with label "' + event.detail.chipLabel + '"';
+        toast.open();
+      });
     });
 
     var states = [{

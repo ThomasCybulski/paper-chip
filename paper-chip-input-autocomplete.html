@@ -4,7 +4,6 @@
 <link rel="import" href="../paper-listbox/paper-listbox.html">
 <link rel="import" href="../paper-material/paper-material.html">
 <link rel="import" href="../paper-ripple/paper-ripple.html">
-<link rel="import" href="paper-chip-input.html">
 
 <!--
 
@@ -53,7 +52,7 @@ Paper-chip's represent complex entities in small blocks, such as a contact.
                     <dom-repeat items="[[_items]]">
                         <template>
                             [[item.name]]
-                            <paper-chip id="paper-chip-[[item]]-[[index]]" label="[[item]]" closable$="[[closable]]" on-chip-removed="_removeChip"></paper-chip>
+                            <paper-chip id="paper-chip-[[item]]-[[index]]" label="[[item]]" closable$="[[closable]]"></paper-chip>
                         </template>
                     </dom-repeat>
                 </slot>
@@ -200,13 +199,6 @@ Paper-chip's represent complex entities in small blocks, such as a contact.
 
             _hideAutocomplete() {
                 this._autocompleteClass = "hide";
-            }
-
-            _removeChip() {
-                var index = this._items.indexOf(event.detail.chipLabel);
-                if (index != -1) {
-                    this.splice('_items', index, 1);
-                }
             }
 
         }
