@@ -136,9 +136,18 @@ Custom property | Description | Default
           this.dispatchEvent(new CustomEvent('chip-removed', {
             detail: {
               'chipLabel': this.label
-            }
+            },
+            composed: true,
+            bubbles: true
           }));
         } else {
+          this.dispatchEvent(new CustomEvent('chip-removed', {
+            detail: {
+              'chipLabel': this.label
+            },
+            composed: true,
+            bubbles: true
+          }));
           this.parentNode.removeChild(this);
         }
       }
