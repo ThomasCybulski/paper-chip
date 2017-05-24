@@ -104,7 +104,7 @@ Custom property | Description | Default
     <div class="chip unselectable">
       [[label]]
       <slot name="avatar"></slot>
-      <div hidden$="[[_displayCloseIcon(closable)]]" class="closeIcon" on-click="_remove">
+      <div hidden$="[[!closable]]" class="closeIcon" on-click="_remove">
         <iron-icon class="close" icon="icons:clear"></iron-icon>
       </div>
     </div>
@@ -141,10 +141,6 @@ Custom property | Description | Default
         } else {
           this.parentNode.removeChild(this);
         }
-      }
-
-      _displayCloseIcon(closable) {
-        return closable ? false : true;
       }
 
     }
