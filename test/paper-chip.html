@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+  <title>paper-chip test</title>
+
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+  <script src="../../web-component-tester/browser.js"></script>
+
+  <link rel="import" href="../paper-chip.html">
+</head>
+
+<body>
+
+  <test-fixture id="basic">
+    <template>
+      <paper-chip></paper-chip>
+    </template>
+  </test-fixture>
+
+  <test-fixture id="textAvatar">
+    <template>
+      <paper-chip>
+        <span id="slotTextAvatar" slot="avatar">
+          <span>T</span>
+        </span>
+      </paper-chip>
+    </template>
+  </test-fixture>
+
+  <test-fixture id="iconAvatar">
+    <template>
+      <paper-chip>
+        <span id="slotIconAvatar" slot="avatar">
+         <iron-icon icon="icons:favorite"></iron-icon>
+        </span>
+      </paper-chip>
+    </template>
+  </test-fixture>
+
+  <test-fixture id="label">
+    <template>
+      <paper-chip label="test"></paper-chip>
+    </template>
+  </test-fixture>
+
+  <test-fixture id="label and closable">
+    <template>
+      <paper-chip label="test" closable></paper-chip>
+    </template>
+  </test-fixture>
+
+  <script>
+    suite('paper-chip', function () {
+
+      test('instantiating the element works', function () {
+        assert.equal(PaperChip.is, 'paper-chip');
+      });
+
+      test('text avatar is displayed', function () {
+        var element = fixture('textAvatar');
+
+        assert.equal(element.querySelector('#slotTextAvatar > span').textContent, 'T');
+        assert.equal(element.querySelector('#slotTextAvatar').slot, 'avatar');
+        assert.equal(PaperChip.is, 'paper-chip');
+      });
+
+      test('icon avatar is displayed', function () {
+        var element = fixture('iconAvatar');
+
+        assert.equal(element.querySelector('#slotIconAvatar > iron-icon').icon, 'icons:favorite');
+        assert.equal(element.querySelector('#slotIconAvatar').slot, 'avatar');
+        assert.equal(PaperChip.is, 'paper-chip');
+      });
+
+      test('label is displayed', function () {
+        var element = fixture('label');
+
+        assert.equal(element.label, 'test');
+      });
+
+      test('label and close icon is displayed', function () {
+        var element = fixture('label and closable');
+
+        assert.isNotNull(element.shadowRoot.querySelectorAll('iron-icon'));
+        assert.equal(element.label, 'test');
+        assert.equal(element.closable, true);
+      });
+
+    });
+  </script>
+</body>
+
+</html>
