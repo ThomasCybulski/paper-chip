@@ -1,6 +1,6 @@
 {
   "name": "paper-chip",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "authors": [
     "Thomas Cybulski <info@thomas-cybulski.de>"
   ],
@@ -9,7 +9,7 @@
   "license": "MIT",
   "homepage": "https://github.com/ThomasCybulski/paper-chip",
   "dependencies": {
-    "polymer": "Polymer/polymer#^v2.0.0",
+    "polymer": "Polymer/polymer#^v2.0.1",
     "paper-icon-button": "PolymerElements/paper-icon-button",
     "paper-input": "PolymerElements/paper-input",
     "paper-item": "PolymerElements/paper-item",
@@ -23,9 +23,9 @@
     "iron-component-page": "PolymerElements/iron-component-page",
     "iron-demo-helpers": "PolymerElements/iron-demo-helpers",
     "web-component-tester": "^v6.0.0",
-    "webcomponentsjs": "webcomponents/webcomponentsjs#^1.0.0"
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^1.0.1"
   },
   "resolutions": {
-    "polymer": "^v2.0.0"
+    "polymer": "^v2.0.1"
   }
 }

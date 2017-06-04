@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>paper-chip-input test</title>
+
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../../web-component-tester/browser.js"></script>
+
+    <link rel="import" href="../paper-chip-input.html">
+</head>
+
+<body>
+
+    <test-fixture id="basic">
+        <template>
+            <paper-chip-input></paper-chip-input>
+        </template>
+    </test-fixture>
+
+    <test-fixture id="label">
+        <template>
+            <paper-chip-input label="test"></paper-chip-input>
+        </template>
+    </test-fixture>
+
+    <test-fixture id="closable items">
+        <template>
+            <paper-chip-input id="paperChipInputWithItems" label="test" closable></paper-chip-input>
+        </template>
+    </test-fixture>
+
+    <script>
+        suite('paper-chip-input', function () {
+
+            test('instantiating the element works', function () {
+                assert.equal(PaperChipInput.is, 'paper-chip-input');
+            });
+
+            test('label is displayed', function () {
+                var element = fixture('label');
+
+                assert.equal(element.label, 'test');
+            });
+
+            test('closable items are displayed', function (done) {
+
+                var element = fixture('closable items');
+                var paperChips = [
+                    'One',
+                    'Two',
+                    'Three'
+                ];
+                
+                element.items = paperChips;
+
+                flush(function () {
+                    assert.equal(element.shadowRoot.querySelector('#slot2').querySelectorAll('paper-chip').length, paperChips.length);
+                    done();
+                });
+
+                assert.equal(element.label, 'test');
+            });
+
+        });
+    </script>ti
+</body>
+
+</html>
