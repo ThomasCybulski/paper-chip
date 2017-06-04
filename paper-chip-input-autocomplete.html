@@ -64,7 +64,7 @@ Paper-chip's represent complex entities in small blocks, such as a contact.
             <paper-listbox id="listbox">
                 <dom-repeat items="[[_filteredSource]]">
                     <template>
-                        <paper-item id="paperItemAutocomplete" label-text="[[item.text]]" on-tap="_selectPaperItem" closable$="[[closable]]">[[item.text]]
+                        <paper-item id="paperItemAutocomplete" on-tap="_selectPaperItem" closable$="[[closable]]">[[item.text]]
                             <paper-ripple></paper-ripple>
                         </paper-item>
                     </template>
