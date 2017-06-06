@@ -43,7 +43,7 @@ $ polymer serve
 <paper-chip label="Closable" closable></paper-chip>
 
 <paper-chip label="Closable and image" closable>
-  <img class="chip-image" slot="avatar" src="demo/images/avatar.png" alt="Contact Person">
+  <img class="chip-image" slot="avatar" src="demo/avatar.png" alt="Contact Person">
 </paper-chip>
 
 <paper-chip label="Closable and icon" closable>
