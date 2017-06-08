@@ -105,6 +105,13 @@ Paper-chip's represent complex entities in small blocks, such as a contact.
 
             _removeLastItem() {
                 if (this.items.length != 0) {
+                    this.dispatchEvent(new CustomEvent('chip-removed', {
+                        detail: {
+                            'chipLabel': this.items[this.items.length - 1]
+                        },
+                        composed: true,
+                        bubbles: true
+                    }));
                     this.splice('items', -1, 1);
                 }
             }
