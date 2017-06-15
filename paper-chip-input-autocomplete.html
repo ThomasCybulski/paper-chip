@@ -4,6 +4,7 @@
 <link rel="import" href="../paper-listbox/paper-listbox.html">
 <link rel="import" href="../paper-material/paper-material.html">
 <link rel="import" href="../paper-ripple/paper-ripple.html">
+<link rel="import" href="paper-chip-input.html">
 
 <!--
 
@@ -47,12 +48,12 @@ Paper-chip's represent complex entities in small blocks, such as a contact.
             }
         </style>
         <div>
-            <paper-input id="paperInput" label="[[label]]" on-keyup="_findItems" on-keydown="_keydown" value="{{_inputValue}}">
-                <slot id="slot" name="input" slot="prefix">
+            <paper-input id="paperInput" label="[[label]]" on-keyup="_findItems" on-keydown="_keydown" value="{{_inputValue}}" autofocus>
+                <slot id="slot2" name="input" slot="prefix">
                     <dom-repeat items="[[_items]]">
                         <template>
                             [[item.name]]
-                            <paper-chip id="paper-chip-[[item]]-[[index]]" label="[[item]]" closable$="[[closable]]"></paper-chip>
+                            <paper-chip id="paper-chip-[[item]]-[[index]]" label="[[item]]" closable$="[[closable]]" on-chip-removed="_removeChip"></paper-chip>
                         </template>
                     </dom-repeat>
                 </slot>
@@ -135,13 +136,6 @@ Paper-chip's represent complex entities in small blocks, such as a contact.
 
                 if (event.keyCode == keyCode_backspace && this._items.length != 0 &&
                     (this._inputValue == '' || this._inputValue == undefined)) {
-                    this.dispatchEvent(new CustomEvent('chip-removed', {
-                        detail: {
-                            'chipLabel': this._items[this._items.length - 1]
-                        },
-                        composed: true,
-                        bubbles: true
-                    }));
                     this._removeLastItem();
                 }
             }
@@ -206,6 +200,13 @@ Paper-chip's represent complex entities in small blocks, such as a contact.
 
             _hideAutocomplete() {
                 this._autocompleteClass = "hide";
+            }
+
+            _removeChip() {
+                var index = this._items.indexOf(event.detail.chipLabel);
+                if (index != -1) {
+                    this.splice('_items', index, 1);
+                }
             }
 
         }

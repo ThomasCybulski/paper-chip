@@ -18,6 +18,7 @@ Custom property | Description | Default
 `--paper-chip-background-color` | The paper-chip background-color | `#e4e4e4`
 `--paper-chip-avatar-background-color` | The paper-chip avatar background-color | `#757575`
 `--paper-chip-avatar-font-color` | The paper-chip avatar font and icon color | `#ffffff`
+`--paper-chip-close-color` | The paper-chip close icon color | `#a6a6a6`
 
 @element paper-chip
 @demo demo/index.html
@@ -76,7 +77,7 @@ Custom property | Description | Default
         position: relative;
         right: 8px;
         color: var(--paper-chip-background-color, #E0E0E0);
-        background-color: #A6A6A6;
+        background-color: var(--paper-chip-close-color, #A6A6A6);
         border-radius: 50%;
       }
 
