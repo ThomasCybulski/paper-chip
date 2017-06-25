@@ -1,6 +1,6 @@
 {
   "name": "paper-chip",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "private": false,
   "main": "paper-chip.html",
   "repository": "https://github.com/ThomasCybulski/paper-chip",
@@ -14,6 +14,6 @@
   ],
   "devDependencies": {
     "bower": "^1.8.0",
-    "polymer-cli": "1.1.0"
+    "polymer-cli": "1.2.0"
   }
 }

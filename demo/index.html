@@ -123,11 +123,15 @@
     </demo-snippet>
 
   </div>
+</body>
 
-  <script>
-    $(document).ready(function () {
-      $(this).scrollTop(0);
-    });
+</html>
+<script>
+  $(document).ready(function () {
+    $(this).scrollTop(0);
+  });
+
+  window.addEventListener('WebComponentsReady', function () {
 
     var allPaperChips = document.querySelectorAll('paper-chip[closable]')
 
@@ -139,7 +143,7 @@
       });
     });
 
-    var allPaperChipInputs = document.querySelectorAll('paper-chip-input[closable]')
+    var allPaperChipInputs = document.querySelectorAll('paper-chip-input')
 
     allPaperChipInputs.forEach(function (paperChipInput) {
       paperChipInput.addEventListener("chip-removed", function (event) {
@@ -149,7 +153,7 @@
       });
     });
 
-    var allPaperChipInputAutocomplete = document.querySelectorAll('paper-chip-input-autocomplete[closable]')
+    var allPaperChipInputAutocomplete = document.querySelectorAll('paper-chip-input-autocomplete')
 
     allPaperChipInputAutocomplete.forEach(function (paperChipInputAutocomplete) {
       paperChipInputAutocomplete.addEventListener("chip-removed", function (event) {
@@ -161,8 +165,5 @@
 
     var element = document.querySelector('paper-chip-input-autocomplete');
     element.source = states;
-  </script>
-
-</body>
-
-</html>
+  });
+</script>
