@@ -42,7 +42,7 @@ Custom property | Description | Default
         margin-right: 5px;
       }
 
-      .chip:hover {
+      .hoverEffect:hover {
         @apply --shadow-elevation-2dp;
         cursor: default;
       }
@@ -117,7 +117,7 @@ Custom property | Description | Default
       }
     </style>
 
-    <div class="chip unselectable">
+    <div class$="[[_computePaperChipClass(noHover)]]">
       <span class="label">[[label]]</span>
       <slot name="avatar"></slot>
       <div hidden$="[[!closable]]" class="closeIcon" on-click="_remove">
@@ -143,8 +143,20 @@ Custom property | Description | Default
           closable: {
             type: Boolean,
             value: false
+          },
+          noHover: {
+            type: Boolean,
+            value: false
           }
         };
+      }
+
+      _computePaperChipClass(noHover) {
+        if (noHover == true) {
+          return 'chip unselectable';
+        } else {
+          return 'chip unselectable hoverEffect';
+        }
       }
 
       _remove(event) {
