@@ -18,7 +18,8 @@
     "paper-ripple": "polymerElements/paper-ripple#^2.0.0",
     "paper-styles": "PolymerElements/paper-styles#^2.0.0",
     "paper-toast": "polymerElements/paper-toast#^2.0.0",
-    "iron-icons": "PolymerElements/iron-icons#^2.0.1"
+    "iron-icons": "PolymerElements/iron-icons#^2.0.1",
+    "iron-a11y-keys-behavior": "PolymerElements/iron-a11y-keys-behavior#^2.0.1"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^3.0.1",
