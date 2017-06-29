@@ -48,7 +48,7 @@ Paper-chip's represent complex entities in small blocks, such as a contact.
             }
         </style>
         <div>
-            <paper-input id="paperInput" label="[[label]]" on-keyup="_findItems" on-keydown="_keydown" value="{{_inputValue}}" autofocus>
+            <paper-input id="paperInput" label="[[label]]" on-keyup="_findItems" on-keydown="_keydown" value="{{_inputValue}}" autofocus="{{autofocus}}">
                 <slot id="slot2" name="input" slot="prefix">
                     <dom-repeat items="[[_items]]">
                         <template>
@@ -100,6 +100,10 @@ Paper-chip's represent complex entities in small blocks, such as a contact.
                     label: {
                         type: String,
                         value: ''
+                    },
+                    autofocus: {
+                        type: Boolean,
+                        value: false
                     },
                     _items: {
                         type: Array,
