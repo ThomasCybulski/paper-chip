@@ -1,4 +1,5 @@
 <link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-a11y-keys/iron-a11y-keys.html">
 <link rel="import" href="../paper-input/paper-input.html">
 <link rel="import" href="../paper-item/paper-item.html">
 <link rel="import" href="../paper-listbox/paper-listbox.html">
@@ -11,223 +12,224 @@
 Material design: [Chips](https://material.io/guidelines/components/chips.html)
 
 `paper-chip-input-autocomplete`
-Paper-chip's represent complex entities in small blocks, such as a contact.
+An element with a lightweight completion suggester. The selected item will be displayed as an paper-chip.
 
 @element paper-chip-input-autocomplete
 @demo demo/index.html
 -->
 
 <dom-module id="paper-chip-input-autocomplete">
-    <template>
-        <style>
-            paper-item:hover {
-                background: #eee;
-                color: #333;
-                cursor: pointer;
-            }
+	<template>
+		<style>
+			paper-item:hover {
+				background: #eee;
+				color: #333;
+				cursor: pointer;
+			}
 
-            paper-item.active,
-             :host ::content paper-item.active {
-                background: #eee;
-                color: #333;
-            }
+			paper-item.active,
+			 :host ::content paper-item.active {
+				background: #eee;
+				color: #333;
+			}
 
-            paper-item {
-                --paper-item-selected-weight: normal;
-            }
+			paper-item {
+				--paper-item-selected-weight: normal;
+			}
 
-            .hide {
-                display: none;
-            }
+			.hide {
+				display: none;
+			}
 
-            .autocomplete {
-                width: var(--autocomplete-width, 50%);
-                position: absolute;
-                background: white;
-                z-index: 1;
-            }
-        </style>
-        <div>
-            <paper-input id="paperInput" label="[[label]]" on-keyup="_findItems" on-keydown="_keydown" value="{{_inputValue}}" autofocus="{{autofocus}}">
-                <slot id="slot2" name="input" slot="prefix">
-                    <dom-repeat items="[[_items]]">
-                        <template>
-                            [[item.name]]
-                            <paper-chip id="paper-chip-[[item]]-[[index]]" label="[[item]]" closable$="[[closable]]" on-chip-removed="_removeChip"></paper-chip>
-                        </template>
-                    </dom-repeat>
-                </slot>
-            </paper-input>
-        </div>
+			.autocomplete {
+				width: var(--autocomplete-width, 50%);
+				position: absolute;
+				background: white;
+				z-index: 1;
+			}
+		</style>
 
-        <paper-material class$="[[_autocompleteClass]]" elevation="1">
-            <paper-listbox id="listbox">
-                <dom-repeat items="[[_filteredSource]]">
-                    <template>
-                        <paper-item id="paperItemAutocomplete" on-tap="_selectPaperItem" closable$="[[closable]]">[[item.text]]
-                            <paper-ripple></paper-ripple>
-                        </paper-item>
-                    </template>
-                </dom-repeat>
-            </paper-listbox>
-        </paper-material>
+		<iron-a11y-keys target="paperInput" keys="backspace" on-keys-pressed="_onKeyBackspace"></iron-a11y-keys>
 
-    </template>
+		<div>
+			<paper-input id="paperInput" label="[[label]]" on-keyup="_findItems" value="{{_inputValue}}" autofocus="{{autofocus}}">
+				<slot id="slot2" name="input" slot="prefix">
+					<dom-repeat items="[[_items]]">
+						<template>
+							[[item.name]]
+							<paper-chip id="paper-chip-[[item]]-[[index]]" label="[[item]]" closable$="[[closable]]" on-chip-removed="_removeChip"></paper-chip>
+						</template>
+					</dom-repeat>
+				</slot>
+			</paper-input>
+		</div>
 
-    <script>
-        class PaperChipInputAutocomplete extends Polymer.Element {
+		<paper-material class$="[[_autocompleteClass]]" elevation="1">
+			<paper-listbox id="listbox">
+				<dom-repeat items="[[_filteredSource]]">
+					<template>
+						<paper-item id="paperItemAutocomplete" on-tap="_selectPaperItem" closable$="[[closable]]">[[item.text]]
+							<paper-ripple></paper-ripple>
+						</paper-item>
+					</template>
+				</dom-repeat>
+			</paper-listbox>
+		</paper-material>
 
-            static get is() {
-                return 'paper-chip-input-autocomplete';
-            }
+	</template>
 
-            static get properties() {
-                return {
-                    minSearchStringLength: {
-                        type: Number,
-                        value: 2
-                    },
-                    source: {
-                        type: Array,
-                        value: function () {
-                            return [];
-                        }
-                    },
-                    closable: {
-                        type: Boolean,
-                        value: false
-                    },
-                    label: {
-                        type: String,
-                        value: ''
-                    },
-                    autofocus: {
-                        type: Boolean,
-                        value: false
-                    },
-                    _items: {
-                        type: Array,
-                        value: function () {
-                            return [];
-                        }
-                    },
-                    _selectedSuggestionId: {
-                        type: Object,
-                        observer: '_selectPaperItem'
-                    },
-                    _filteredSource: {
-                        type: Array,
-                        value: function () {
-                            return [];
-                        }
-                    },
-                    _inputValue: {
-                        type: String,
-                        value: ""
-                    },
-                    _autocompleteClass: {
-                        type: String,
-                        value: "hide"
-                    },
-                    _paperInputWidth: {
-                        type: Number
-                    }
-                };
-            }
+	<script>
+		class PaperChipInputAutocomplete extends Polymer.Element {
 
-            _keydown(event) {
-                const keyCode_backspace = '8';
+			static get is() {
+				return 'paper-chip-input-autocomplete';
+			}
 
-                if (event.keyCode == keyCode_backspace && this._items.length != 0 &&
-                    (this._inputValue == '' || this._inputValue == undefined)) {
-                    this._removeLastItem();
-                }
-            }
+			static get properties() {
+				return {
+					minSearchStringLength: {
+						type: Number,
+						value: 2
+					},
+					source: {
+						type: Array,
+						value: function () {
+							return [];
+						}
+					},
+					closable: {
+						type: Boolean,
+						value: false
+					},
+					label: {
+						type: String,
+						value: ''
+					},
+					autofocus: {
+						type: Boolean,
+						value: false
+					},
+					_items: {
+						type: Array,
+						value: function () {
+							return [];
+						}
+					},
+					_selectedSuggestionId: {
+						type: Object,
+						observer: '_selectPaperItem'
+					},
+					_filteredSource: {
+						type: Array,
+						value: function () {
+							return [];
+						}
+					},
+					_inputValue: {
+						type: String,
+						value: ""
+					},
+					_autocompleteClass: {
+						type: String,
+						value: "hide"
+					},
+					_paperInputWidth: {
+						type: Number
+					}
+				};
+			}
 
-            _removeLastItem() {
-                if (this._items.length != 0) {
-                    let lastItemIndex = this._items.length - 1;
-                    let lastItemname = this._items[lastItemIndex];
-                    
-                    this._throwChipRemovedEvent(lastItemname);
-                    this.splice('_items', -1, 1);
-                }
-            }
+			_onKeyBackspace(event) {
+				if (this._items.length != 0 &&
+					(this._inputValue == '' || this._inputValue == undefined)) {
+					this._removeLastItem();
+				}
+			}
 
-            _findItems(event) {
-                if (this._inputValue.length == 0) {
-                    this._autocompleteClass = "hide";
-                }
+			_removeLastItem() {
+				if (this._items.length != 0) {
+					let lastItemIndex = this._items.length - 1;
+					let lastItemname = this._items[lastItemIndex];
 
-                if (this._inputValue.length >= this.minSearchStringLength) {
-                    this._updatePaperListboxWidth();
-                    this._filterItems();
-                    this._autocompleteClass = "autocomplete";
-                } else {
-                    this._autocompleteClass = "hide";
-                }
-            }
+					this._throwChipRemovedEvent(lastItemname);
+					this.splice('_items', -1, 1);
+				}
+			}
 
-            _updatePaperListboxWidth() {
-                this.updateStyles({
-                    '--autocomplete-width': this.$.paperInput.offsetWidth + 'px',
-                });
-            }
+			_findItems(event) {
+				if (this._inputValue.length == 0) {
+					this._autocompleteClass = "hide";
+				}
 
-            _filterItems() {
-                let filteredByString = this.source.filter(element => this._filterBySearchString(element));
+				if (this._inputValue.length >= this.minSearchStringLength) {
+					this._updatePaperListboxWidth();
+					this._filterItems();
+					this._autocompleteClass = "autocomplete";
+				} else {
+					this._autocompleteClass = "hide";
+				}
+			}
 
-                if (filteredByString.length > 0 && this._items.length) {
-                    this._filteredSource = filteredByString.filter(element => this._filterByExistingPaperChip(
-                        element));;
-                } else {
-                    this._filteredSource = filteredByString;
-                }
-            }
+			_updatePaperListboxWidth() {
+				this.updateStyles({
+					'--autocomplete-width': this.$.paperInput.offsetWidth + 'px',
+				});
+			}
 
-            _filterByExistingPaperChip(element) {
-                return this._items.indexOf(element.text) == -1;
-            }
+			_filterItems() {
+				let filteredByString = this.source.filter(element => this._filterBySearchString(element));
 
-            _filterBySearchString(element) {
-                return element.text.toLowerCase().includes(this._inputValue.toLowerCase());
-            }
+				if (filteredByString.length > 0 && this._items.length) {
+					this._filteredSource = filteredByString.filter(element => this._filterByExistingPaperChip(
+						element));;
+				} else {
+					this._filteredSource = filteredByString;
+				}
+			}
 
-            _selectPaperItem(event) {
-                this._saveTag(event.model.__data.item.text);
-                this._inputValue = '';
-                this._autocompleteClass = "hide";
-                this.$.paperInput.focus();
-            }
+			_filterByExistingPaperChip(element) {
+				return this._items.indexOf(element.text) == -1;
+			}
 
-            _saveTag(name) {
-                if (this._items.indexOf(name) == -1) {
-                    this.push('_items', name);
-                }
-            }
+			_filterBySearchString(element) {
+				return element.text.toLowerCase().includes(this._inputValue.toLowerCase());
+			}
 
-            _hideAutocomplete() {
-                this._autocompleteClass = "hide";
-            }
+			_selectPaperItem(event) {
+				this._saveTag(event.model.__data.item.text);
+				this._inputValue = '';
+				this._autocompleteClass = "hide";
+				this.$.paperInput.focus();
+			}
 
-            _removeChip() {
-                var index = this._items.indexOf(event.detail.chipLabel);
-                if (index != -1) {
-                    this.splice('_items', index, 1);
-                }
-            }
+			_saveTag(name) {
+				if (this._items.indexOf(name) == -1) {
+					this.push('_items', name);
+				}
+			}
 
-            _throwChipRemovedEvent(chipLabel) {
-                this.dispatchEvent(new CustomEvent('chip-removed', {
-                    detail: {
-                        'chipLabel': chipLabel
-                    },
-                    composed: true,
-                    bubbles: true
-                }));
-            }
+			_hideAutocomplete() {
+				this._autocompleteClass = "hide";
+			}
 
-        }
-        window.customElements.define(PaperChipInputAutocomplete.is, PaperChipInputAutocomplete);
-    </script>
+			_removeChip() {
+				var index = this._items.indexOf(event.detail.chipLabel);
+				if (index != -1) {
+					this.splice('_items', index, 1);
+				}
+			}
+
+			_throwChipRemovedEvent(chipLabel) {
+				this.dispatchEvent(new CustomEvent('chip-removed', {
+					detail: {
+						'chipLabel': chipLabel
+					},
+					composed: true,
+					bubbles: true
+				}));
+			}
+
+		}
+		window.customElements.define(PaperChipInputAutocomplete.is, PaperChipInputAutocomplete);
+	</script>
 </dom-module>

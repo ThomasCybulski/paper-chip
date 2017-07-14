@@ -1,4 +1,5 @@
 <link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-a11y-keys/iron-a11y-keys.html">
 <link rel="import" href="../iron-icons/iron-icons.html">
 <link rel="import" href="../paper-input/paper-input.html">
 <link rel="import" href="paper-chip.html">
@@ -8,130 +9,130 @@
 Material design: [Chips](https://material.io/guidelines/components/chips.html)
 
 `paper-chip-input`
-Paper-chip's represent complex entities in small blocks, such as a contact.
+paper-chip's combined with a paper-input element.
 
 @element paper-chip-input
 @demo demo/index.html
 -->
 
 <dom-module id="paper-chip-input">
-    <template>
-        <style>
+	<template>
+		<style></style>
 
-        </style>
+		<iron-a11y-keys target="paperInput" keys="enter" on-keys-pressed="_onKeyEnter"></iron-a11y-keys>
+		<iron-a11y-keys target="paperInput" keys="backspace" on-keys-pressed="_onKeyBackspace"></iron-a11y-keys>
 
-        <paper-input value="{{_value}}" label="[[label]]" on-keydown="_keydown">
-            <slot id="slot" name="input" slot="prefix"></slot>
-            <slot id="slot2" name="input2" slot="prefix">
-                <dom-repeat items="[[items]]">
-                    <template>
-                        [[item.name]]
-                        <paper-chip id="paper-chip-[[item]]-[[index]]" label="[[item]]" closable$="[[closable]]" on-chip-removed="_removeChip"></paper-chip>
-                    </template>
-                </dom-repeat>
-            </slot>
-        </paper-input>
+		<paper-input id="paperInput" value="{{_value}}" label="[[label]]">
+			<slot id="slot" name="input" slot="prefix"></slot>
+			<slot id="slot2" name="input2" slot="prefix">
+				<dom-repeat items="[[items]]">
+					<template>
+						[[item.name]]
+						<paper-chip id="paper-chip-[[item]]-[[index]]" label="[[item]]" closable$="[[closable]]" on-chip-removed="_removeChip"></paper-chip>
+					</template>
+				</dom-repeat>
+			</slot>
+		</paper-input>
 
-    </template>
+	</template>
 
-    <script>
-        class PaperChipInput extends Polymer.Element {
+	<script>
+		class PaperChipInput extends Polymer.Element {
 
-            static get is() {
-                return 'paper-chip-input';
-            }
+			static get is() {
+				return 'paper-chip-input';
+			}
 
-            static get properties() {
-                return {
-                    items: {
-                        type: Array,
-                        value: function () {
-                            return [];
-                        }
-                    },
-                    closable: {
-                        type: Boolean,
-                        value: false
-                    },
-                    label: {
-                        type: String,
-                        value: ''
-                    },
-                    _value: {
-                        type: String
-                    }
-                };
-            }
+			static get properties() {
+				return {
+					items: {
+						type: Array,
+						value: function () {
+							return [];
+						}
+					},
+					closable: {
+						type: Boolean,
+						value: false
+					},
+					label: {
+						type: String,
+						value: ''
+					},
+					_value: {
+						type: String
+					}
+				};
+			}
 
-            _keydown(event) {
-                const keyCode_backspace = '8';
-                const keyCode_enter = '13';
+			_onKeyEnter() {
+				if (this._value != '' && this._value != undefined) {
+					this._saveTag(this._value);
+					this._value = '';
+				}
+			}
 
-                if (event.keyCode == keyCode_backspace && this.items.length != 0 &&
-                    (this._value == '' || this._value == undefined)) {
-                    this._removeLastItem();
-                } else if (event.keyCode == keyCode_backspace && this.$.slot.assignedNodes().length > 0 &&
-                    (this._value == '' || this._value == undefined)) {
-                    var distributedNodes = this.$.slot.assignedNodes({
-                        flatten: true
-                    })
-                    let lastPaperChipIndex = 0;
-                    for (var i = 0; i < this.childNodes.length; i++) {
-                        if (this.childNodes[i].tagName == 'PAPER-CHIP') {
-                            lastPaperChipIndex = i;
-                        }
-                    }
-                    this._throwChipRemovedEvent(this.childNodes[lastPaperChipIndex].label);
-                    this.removeChild(this.childNodes[lastPaperChipIndex]);
-                }
+			_onKeyBackspace() {
+				if (this.items.length != 0 &&
+					(this._value == '' || this._value == undefined)) {
+					this._removeLastItem();
+				} else if (this.$.slot.assignedNodes().length > 0 &&
+					(this._value == '' || this._value == undefined)) {
+					var distributedNodes = this.$.slot.assignedNodes({
+						flatten: true
+					})
+					let lastPaperChipIndex = 0;
+					for (var i = 0; i < this.childNodes.length; i++) {
+						if (this.childNodes[i].tagName == 'PAPER-CHIP') {
+							lastPaperChipIndex = i;
+						}
+					}
+					this._throwChipRemovedEvent(this.childNodes[lastPaperChipIndex].label);
+					this.removeChild(this.childNodes[lastPaperChipIndex]);
+				}
+			}
 
-                if (event.keyCode == keyCode_enter && this._value != '' && this._value != undefined) {
-                    this._saveTag(this._value);
-                    this._value = '';
-                }
-            }
+			_saveTag(name) {
+				if (this.items.indexOf(name) == -1) {
+					this.push('items', name);
+				}
+			}
 
-            _saveTag(name) {
-                if (this.items.indexOf(name) == -1) {
-                    this.push('items', name);
-                }
-            }
+			_removeChip(event) {
+				var index = this.items.indexOf(event.detail.chipLabel);
+				if (index != -1) {
+					this.splice('items', index, 1);
+				}
+			}
 
-            _removeChip(event) {
-                var index = this.items.indexOf(event.detail.chipLabel);
-                if (index != -1) {
-                    this.splice('items', index, 1);
-                }
-            }
+			_removeLastItem() {
+				if (this.items.length != 0) {
+					this._throwChipRemovedEvent(this.items[this.items.length - 1]);
+					this.splice('items', -1, 1);
+				}
+			}
 
-            _removeLastItem() {
-                if (this.items.length != 0) {
-                    this._throwChipRemovedEvent(this.items[this.items.length - 1]);
-                    this.splice('items', -1, 1);
-                }
-            }
+			_getLastPaperChipPosition(childNodes) {
+				let lastPaperChipIndex = 0;
+				for (var i = 0; i < childNodes.length; i++) {
+					if (childNodes[i].tagName == 'PAPER-CHIP') {
+						lastPaperChipIndex = i;
+					}
+				}
+				return lastPaperChipIndex;
+			}
 
-            _getLastPaperChipPosition(childNodes) {
-                let lastPaperChipIndex = 0;
-                for (var i = 0; i < childNodes.length; i++) {
-                    if (childNodes[i].tagName == 'PAPER-CHIP') {
-                        lastPaperChipIndex = i;
-                    }
-                }
-                return lastPaperChipIndex;
-            }
+			_throwChipRemovedEvent(chipLabel) {
+				this.dispatchEvent(new CustomEvent('chip-removed', {
+					detail: {
+						'chipLabel': chipLabel
+					},
+					composed: true,
+					bubbles: true
+				}));
+			}
 
-            _throwChipRemovedEvent(chipLabel) {
-                this.dispatchEvent(new CustomEvent('chip-removed', {
-                    detail: {
-                        'chipLabel': chipLabel
-                    },
-                    composed: true,
-                    bubbles: true
-                }));
-            }
-
-        }
-        window.customElements.define(PaperChipInput.is, PaperChipInput);
-    </script>
+		}
+		window.customElements.define(PaperChipInput.is, PaperChipInput);
+	</script>
 </dom-module>
