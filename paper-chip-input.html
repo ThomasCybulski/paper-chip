@@ -22,7 +22,13 @@ paper-chip's combined with a paper-input element.
 		<iron-a11y-keys target="paperInput" keys="enter" on-keys-pressed="_onKeyEnter"></iron-a11y-keys>
 		<iron-a11y-keys target="paperInput" keys="backspace" on-keys-pressed="_onKeyBackspace"></iron-a11y-keys>
 
-		<paper-input id="paperInput" value="{{_value}}" label="[[label]]">
+		<paper-input id="paperInput" 
+					always-float-label$="[[alwaysFloatLabel]]" 
+					no-label-float$="[[noLabelFloat]]" 
+					disabled$="[[disabled]]"
+					value="{{_value}}" 
+					label="[[label]]">
+
 			<slot id="slot" name="input" slot="prefix"></slot>
 			<slot id="slot2" name="input2" slot="prefix">
 				<dom-repeat items="[[items]]">
@@ -45,19 +51,55 @@ paper-chip's combined with a paper-input element.
 
 			static get properties() {
 				return {
+
+					/**
+ 					* Set to true to always float the floating label.
+ 					*/
+					alwaysFloatLabel: {
+						type: Boolean,
+						value: false
+					},
+
+					/**
+ 					* If true, the paper-chips can be closed.
+ 					*/
+					closable: {
+						type: Boolean,
+						value: false
+					},
+
+					/**
+					* Set to true to disable this input.
+					*/
+					disabled: {
+						type: Boolean,
+						value: false,
+					},
+
+					/**
+ 					* The list of items, which will be set as paper-chips.
+ 					*/
 					items: {
 						type: Array,
 						value: function () {
 							return [];
 						}
 					},
-					closable: {
-						type: Boolean,
-						value: false
-					},
+
+					/**
+ 					* The label for this paper-chip-input.
+ 					*/
 					label: {
 						type: String,
 						value: ''
+					},
+
+					/**
+					* Set to true to disable the floating label. The label disappears when the input value is not null.
+					*/
+					noLabelFloat: {
+						type: Boolean,
+						value: false
 					},
 					_value: {
 						type: String
