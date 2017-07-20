@@ -5,6 +5,7 @@
 <link rel="import" href="../paper-listbox/paper-listbox.html">
 <link rel="import" href="../paper-material/paper-material.html">
 <link rel="import" href="../paper-ripple/paper-ripple.html">
+<link rel="import" href="../paper-styles/default-theme.html">
 <link rel="import" href="paper-chip-input.html">
 
 <!--
@@ -13,6 +14,20 @@ Material design: [Chips](https://material.io/guidelines/components/chips.html)
 
 `paper-chip-input-autocomplete`
 An element with a lightweight completion suggester. The selected item will be displayed as an paper-chip.
+
+### Styling
+The following custom properties and mixins are available for styling:
+
+Custom property | Description | Default
+----------------|-------------|----------
+`--paper-chip-autocomplete-focus-color` | Label and underline color when the input is focused | `--primary-color`
+`--paper-chip-input-autocomplete-font-size` | Fontsize applied to input field | `13px`
+`--paper-chip-input-autocomplete-label-font-size` | Fontsize applied to input label | `13px`
+`--paper-chip-autocomplete-width` | Width of the suggestion field | `100%`
+`--paper-chip-autocomplete-suggestion-background` | Background color of the autocomplete suggestion field | `--primary-background-color`
+`--paper-chip-autocomplete-suggestion-text-color` | Text color of the autocomplete suggestion field | `--primary-text-color`
+`--paper-chip-autocomplete-item-font-size` | Fontsize of the autocomplete suggestion field | `13px`
+`--paper-chip-autocomplete-item-height` | Minimum height of the item | `48px`
 
 @element paper-chip-input-autocomplete
 @demo demo/index.html
@@ -35,6 +50,12 @@ An element with a lightweight completion suggester. The selected item will be di
 
 			paper-item {
 				--paper-item-selected-weight: normal;
+				--paper-item-min-height: var(--paper-chip-autocomplete-item-height, 48px);
+				--paper-item: {
+					font-family: 'Roboto', sans-serif;
+					-webkit-font-smoothing: antialiased;
+					font-size: var(--paper-chip-autocomplete-item-font-size, 13px);
+				}
 			}
 
 			.hide {
@@ -42,10 +63,30 @@ An element with a lightweight completion suggester. The selected item will be di
 			}
 
 			.autocomplete {
-				width: var(--autocomplete-width, 50%);
+				width: var(--paper-chip-autocomplete-width, 100%);
 				position: absolute;
-				background: white;
 				z-index: 1;
+			}
+
+			paper-listbox {
+				--paper-listbox-background-color: var(--paper-chip-autocomplete-suggestion-background, var(--primary-background-color));
+				--paper-listbox-color: var(--paper-chip-autocomplete-suggestion-text-color, var(--primary-text-color));
+			}
+
+			paper-input {
+				--paper-input-container-focus-color: var(--paper-chip-autocomplete-focus-color, var(--primary-color));
+
+				--paper-input-container-input: {
+					font-family: 'Roboto', sans-serif;
+					-webkit-font-smoothing: antialiased;
+					font-size: var(--paper-chip-input-autocomplete-font-size, 13px);
+				}
+
+				--paper-input-container-label: {
+					font-family: 'Roboto', sans-serif;
+					-webkit-font-smoothing: antialiased;
+					font-size: var(--paper-chip-input-autocomplete-label-font-size, 13px);
+				}
 			}
 		</style>
 
@@ -87,24 +128,44 @@ An element with a lightweight completion suggester. The selected item will be di
 
 			static get properties() {
 				return {
+					
+					/**
+ 					* The minimum lengt to trigger the autocomplete.
+ 					*/
 					minSearchStringLength: {
 						type: Number,
 						value: 2
 					},
+
+					/**
+ 					* An array containing the items.
+ 					*/
 					source: {
 						type: Array,
 						value: function () {
 							return [];
 						}
 					},
+					
+					/**
+ 					* If true, the paper-chips can be closed.
+ 					*/
 					closable: {
 						type: Boolean,
 						value: false
 					},
+
+					/**
+ 					* The label for this paper-chip-input-autocomplete.
+ 					*/
 					label: {
 						type: String,
 						value: ''
 					},
+
+					/**
+ 					* If true, the paper-chip-input-autocomplete is focused.
+ 					*/
 					autofocus: {
 						type: Boolean,
 						value: false
@@ -172,7 +233,7 @@ An element with a lightweight completion suggester. The selected item will be di
 
 			_updatePaperListboxWidth() {
 				this.updateStyles({
-					'--autocomplete-width': this.$.paperInput.offsetWidth + 'px',
+					'--paper-chip-input-autocomplete-width': this.$.paperInput.offsetWidth + 'px',
 				});
 			}
 
@@ -213,7 +274,7 @@ An element with a lightweight completion suggester. The selected item will be di
 			}
 
 			_removeChip() {
-				var index = this._items.indexOf(event.detail.chipLabel);
+				const index = this._items.indexOf(event.detail.chipLabel);
 				if (index != -1) {
 					this.splice('_items', index, 1);
 				}

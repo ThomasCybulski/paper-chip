@@ -2,6 +2,7 @@
 <link rel="import" href="../iron-a11y-keys/iron-a11y-keys.html">
 <link rel="import" href="../iron-icons/iron-icons.html">
 <link rel="import" href="../paper-input/paper-input.html">
+<link rel="import" href="../paper-styles/default-theme.html">
 <link rel="import" href="paper-chip.html">
 
 <!--
@@ -11,13 +12,38 @@ Material design: [Chips](https://material.io/guidelines/components/chips.html)
 `paper-chip-input`
 paper-chip's combined with a paper-input element.
 
+### Styling
+The following custom properties and mixins are available for styling:
+
+Custom property | Description | Default
+----------------|-------------|----------
+`--paper-chip-input-focus-color` | Label and underline color when the input is focused | `--primary-color`
+`--paper-chip-input-font-size` | Fontsize applied to input field | `13px`
+`--paper-chip-input-label-font-size` | Fontsize applied to input label | `13px`
+
 @element paper-chip-input
 @demo demo/index.html
 -->
 
 <dom-module id="paper-chip-input">
 	<template>
-		<style></style>
+		<style>
+			paper-input {
+				--paper-input-container-focus-color: var(--paper-chip-input-focus-color, var(--primary-color));
+			
+				--paper-input-container-input: {
+					font-family: 'Roboto', sans-serif;
+					-webkit-font-smoothing: antialiased;
+					font-size: var(--paper-chip-input-font-size, 13px);
+				}
+				
+				--paper-input-container-label: { 
+					font-family: 'Roboto', sans-serif;
+					-webkit-font-smoothing: antialiased;
+					font-size: var(--paper-chip-input-label-font-size, 13px);
+				}
+			}
+		</style>
 
 		<iron-a11y-keys target="paperInput" keys="enter" on-keys-pressed="_onKeyEnter"></iron-a11y-keys>
 		<iron-a11y-keys target="paperInput" keys="backspace" on-keys-pressed="_onKeyBackspace"></iron-a11y-keys>
