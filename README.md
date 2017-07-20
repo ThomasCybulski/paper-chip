@@ -81,7 +81,7 @@ $ polymer serve
   </span>
 </paper-chip>
 
-<paper-chip label="Custom Avatar Font and Icon Color" class="custom-avatar-font-color">
+<paper-chip label="Custom avatar font-size and icon/font color" class="custom-avatar-font-color-and-size">
   <span class="chip-background" slot="avatar">
     <iron-icon icon="icons:favorite"></iron-icon>
   </span>
@@ -100,9 +100,10 @@ $ polymer serve
     --paper-chip-avatar-background-color: #64b5f6;
   }
 
-  paper-chip.custom-avatar-font-color {
-    --paper-chip-avatar-font-color: red;
-  }
+ paper-chip.custom-avatar-font-color-and-size {
+  --paper-chip-avatar-font-color: red;
+  --paper-chip-font-size: 16px;
+ }
 </style>
 ```
 
@@ -125,10 +126,12 @@ $ polymer serve
 ```html
 <paper-chip-input label="+Add (Enter) -Delete (Backspace)" items='["one", "two", "three"]' closable></paper-chip-input>
 
-<paper-chip-input label="+Add (Enter) -Delete (Backspace)">
+<paper-chip-input always-float-label label="+Add (Enter) -Delete (Backspace)">
   <paper-chip label="Default Tag" slot="input"></paper-chip>
   <paper-chip label="Default Tag Closbale" closable slot="input"></paper-chip>
 </paper-chip-input>
+
+<paper-chip-input disabled label="+Add (Enter) -Delete (Backspace)" items='["one", "two", "three"]' closable></paper-chip-input>
 ```
 
 ## Example: Autocomplete field with tags
