@@ -30,14 +30,14 @@ Custom property | Description | Default
 		<style>
 			paper-input {
 				--paper-input-container-focus-color: var(--paper-chip-input-focus-color, var(--primary-color));
-			
+
 				--paper-input-container-input: {
 					font-family: 'Roboto', sans-serif;
 					-webkit-font-smoothing: antialiased;
 					font-size: var(--paper-chip-input-font-size, 13px);
 				}
-				
-				--paper-input-container-label: { 
+
+				--paper-input-container-label: {
 					font-family: 'Roboto', sans-serif;
 					-webkit-font-smoothing: antialiased;
 					font-size: var(--paper-chip-input-label-font-size, 13px);
@@ -136,6 +136,11 @@ Custom property | Description | Default
 			_onKeyEnter() {
 				if (this._value != '' && this._value != undefined) {
 					this._saveTag(this._value);
+					this.dispatchEvent(new CustomEvent('chip-created', {
+						detail: {
+							chipLabel: this._value
+						}
+					}));
 					this._value = '';
 				}
 			}
