@@ -40,7 +40,7 @@
 
 				<paper-chip label="Basic with Avatar Text">
 					<span class="chip-background" slot="avatar">
-            <span>T</span>
+            			<span>T</span>
 					</span>
 				</paper-chip>
 
@@ -52,8 +52,8 @@
 
 				<paper-chip label="Closable and icon" closable>
 					<span class="chip-background" slot="avatar">
-            <iron-icon icon="icons:favorite"></iron-icon>
-          </span>
+            			<iron-icon icon="icons:favorite"></iron-icon>
+          			</span>
 				</paper-chip>
 
 			</template>
@@ -154,6 +154,12 @@
 			paperChipInput.addEventListener("chip-removed", function (event) {
 				var toast = document.querySelector('paper-toast');
 				toast.text = 'Removed paper-chip with label "' + event.detail.chipLabel + '"';
+				toast.open();
+			});
+
+			paperChipInput.addEventListener("chip-created", function (event) {
+				var toast = document.querySelector('paper-toast');
+				toast.text = 'paper-chip created with label "' + event.detail.chipLabel + '"';
 				toast.open();
 			});
 		});

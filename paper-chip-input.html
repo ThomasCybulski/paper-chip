@@ -136,6 +136,11 @@ Custom property | Description | Default
 			_onKeyEnter() {
 				if (this._value != '' && this._value != undefined) {
 					this._saveTag(this._value);
+                    this.dispatchEvent(new CustomEvent('chip-created', {
+						detail: {
+							chipLabel: this._value
+						}
+					}));
 					this._value = '';
 				}
 			}
