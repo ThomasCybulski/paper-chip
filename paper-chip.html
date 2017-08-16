@@ -92,7 +92,7 @@ Custom property | Description | Default
 				margin-right: 12px;
 			}
 
-			slot[name='avatar']::slotted(.chip-image) {
+			.avatar ::slotted(.chip-image) {
 				float: left;
 				margin: 0 8px 0 -12px;
 				height: 32px;
@@ -100,7 +100,7 @@ Custom property | Description | Default
 				border-radius: 50%;
 			}
 
-			slot[name='avatar']::slotted(.chip-background) {
+			.avatar ::slotted(.chip-background) {
 				--iron-icon-height: 19px;
 				--iron-icon-width: 19px;
 				background: var(--paper-chip-avatar-background-color, #989898);
@@ -122,7 +122,7 @@ Custom property | Description | Default
 
 		<div class$="[[_computePaperChipClass(noHover)]]">
 			<span class="label">[[label]]</span>
-			<slot name="avatar"></slot>
+			<span class="avatar"><slot name="avatar"></slot></span>
 			<div hidden$="[[!closable]]" class="closeIcon" on-click="_remove">
 				<iron-icon class="close" icon="icons:clear"></iron-icon>
 			</div>
