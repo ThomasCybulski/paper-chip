@@ -60,7 +60,7 @@ Custom property | Description | Default
 					label="[[label]]">
 			<slot id="slot" name="input" slot="prefix"></slot>
 			<div id="slot2" slot="prefix">
-				<dom-repeat items="[[items]]" id="itemsRepeater">
+				<dom-repeat items="[[items]]">
 					<template>
 						[[item.name]]
 						<paper-chip id="paper-chip-[[item]]-[[index]]" label="[[item]]" closable$="[[closable]]" on-chip-removed="_removeChip"></paper-chip>
