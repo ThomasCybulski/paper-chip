@@ -273,7 +273,7 @@ Custom property | Description | Default
 				this._autocompleteClass = "hide";
 			}
 
-			_removeChip() {
+			_removeChip(event) {
 				const index = this._items.indexOf(event.detail.chipLabel);
 				if (index != -1) {
 					this.splice('_items', index, 1);
