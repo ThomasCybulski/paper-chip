@@ -58,9 +58,9 @@ Custom property | Description | Default
 					disabled$="[[disabled]]"
 					value="{{_value}}"
 					label="[[label]]">
-			<div slot="prefix">
-				<slot id="slot" name="input"></slot>
-				<dom-repeat items="[[items]]">
+			<slot id="slot" name="input" slot="prefix"></slot>
+			<div id="slot2" slot="prefix">
+				<dom-repeat items="[[items]]" id="itemsRepeater">
 					<template>
 						[[item.name]]
 						<paper-chip id="paper-chip-[[item]]-[[index]]" label="[[item]]" closable$="[[closable]]" on-chip-removed="_removeChip"></paper-chip>
