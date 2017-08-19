@@ -42,17 +42,21 @@ Custom property | Description | Default
 					-webkit-font-smoothing: antialiased;
 					font-size: var(--paper-chip-input-label-font-size, 13px);
 				}
+
+				--paper-input-container-ms-clear: {
+					display: none;
+				}
 			}
 		</style>
 
 		<iron-a11y-keys target="paperInput" keys="enter" on-keys-pressed="_onKeyEnter"></iron-a11y-keys>
 		<iron-a11y-keys target="paperInput" keys="backspace" on-keys-pressed="_onKeyBackspace"></iron-a11y-keys>
 
-		<paper-input id="paperInput" 
-					always-float-label$="[[alwaysFloatLabel]]" 
-					no-label-float$="[[noLabelFloat]]" 
+		<paper-input id="paperInput"
+					always-float-label$="[[alwaysFloatLabel]]"
+					no-label-float$="[[noLabelFloat]]"
 					disabled$="[[disabled]]"
-					value="{{_value}}" 
+					value="{{_value}}"
 					label="[[label]]">
 
 			<slot id="slot" name="input" slot="prefix"></slot>
