@@ -253,7 +253,7 @@ Custom property | Description | Default
 			}
 
 			_filterBySearchString(element) {
-				return element.text.toLowerCase().includes(this._inputValue.toLowerCase());
+				return element.text.toLowerCase().indexOf(this._inputValue.toLowerCase()) >= 0;
 			}
 
 			_selectPaperItem(event) {
