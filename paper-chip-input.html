@@ -58,9 +58,8 @@ Custom property | Description | Default
 					disabled$="[[disabled]]"
 					value="{{_value}}"
 					label="[[label]]">
-
-			<slot id="slot" name="input" slot="prefix"></slot>
 			<div slot="prefix">
+				<slot id="slot" name="input"></slot>
 				<dom-repeat items="[[items]]">
 					<template>
 						[[item.name]]
