@@ -94,14 +94,14 @@ Custom property | Description | Default
 
 		<div>
 			<paper-input id="paperInput" label="[[label]]" on-keyup="_findItems" value="{{_inputValue}}" autofocus="{{autofocus}}">
-				<slot id="slot2" name="input" slot="prefix">
+				<div id="slot2" slot="prefix">
 					<dom-repeat items="[[_items]]">
 						<template>
 							[[item.name]]
 							<paper-chip id="paper-chip-[[item]]-[[index]]" label="[[item]]" closable$="[[closable]]" on-chip-removed="_removeChip"></paper-chip>
 						</template>
 					</dom-repeat>
-				</slot>
+				</div>
 			</paper-input>
 		</div>
 
@@ -128,7 +128,7 @@ Custom property | Description | Default
 
 			static get properties() {
 				return {
-					
+
 					/**
  					* The minimum lengt to trigger the autocomplete.
  					*/
@@ -146,7 +146,7 @@ Custom property | Description | Default
 							return [];
 						}
 					},
-					
+
 					/**
  					* If true, the paper-chips can be closed.
  					*/
