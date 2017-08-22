@@ -42,28 +42,28 @@ Custom property | Description | Default
 					-webkit-font-smoothing: antialiased;
 					font-size: var(--paper-chip-input-label-font-size, 13px);
 				}
+
 			}
 		</style>
 
 		<iron-a11y-keys target="paperInput" keys="enter" on-keys-pressed="_onKeyEnter"></iron-a11y-keys>
 		<iron-a11y-keys target="paperInput" keys="backspace" on-keys-pressed="_onKeyBackspace"></iron-a11y-keys>
 
-		<paper-input id="paperInput" 
-					always-float-label$="[[alwaysFloatLabel]]" 
-					no-label-float$="[[noLabelFloat]]" 
+		<paper-input id="paperInput"
+					always-float-label$="[[alwaysFloatLabel]]"
+					no-label-float$="[[noLabelFloat]]"
 					disabled$="[[disabled]]"
-					value="{{_value}}" 
+					value="{{_value}}"
 					label="[[label]]">
-
 			<slot id="slot" name="input" slot="prefix"></slot>
-			<slot id="slot2" name="input2" slot="prefix">
+			<div id="slot2" slot="prefix">
 				<dom-repeat items="[[items]]">
 					<template>
 						[[item.name]]
 						<paper-chip id="paper-chip-[[item]]-[[index]]" label="[[item]]" closable$="[[closable]]" on-chip-removed="_removeChip"></paper-chip>
 					</template>
 				</dom-repeat>
-			</slot>
+			</div>
 		</paper-input>
 
 	</template>
