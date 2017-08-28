@@ -7,10 +7,7 @@
 
 	<title>paper-chip demo</title>
 
-	<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-	 crossorigin="anonymous"></script>
-
-	<script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+	<script src="../../webcomponentsjs/webcomponents-loader.js"></script>
 
 	<link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
 	<link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
@@ -132,10 +129,6 @@
 
 </html>
 <script>
-	$(document).ready(function () {
-		$(this).scrollTop(0);
-	});
-
 	window.addEventListener('WebComponentsReady', function () {
 
 		var allPaperChips = document.querySelectorAll('paper-chip[closable]')
