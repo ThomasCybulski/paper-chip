@@ -7,7 +7,7 @@
 
   <title>paper-chip test</title>
 
-  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+  <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
   <script src="../../web-component-tester/browser.js"></script>
 
   <link rel="import" href="../paper-chip.html">
@@ -47,13 +47,14 @@
     </template>
   </test-fixture>
 
-  <test-fixture id="label and closable">
+  <test-fixture id="labelAndClosable">
     <template>
       <paper-chip label="test" closable></paper-chip>
     </template>
   </test-fixture>
 
   <script>
+	  
     suite('paper-chip', function () {
 
       test('instantiating the element works', function () {
@@ -61,7 +62,7 @@
       });
 
       test('text avatar is displayed', function () {
-        var element = fixture('textAvatar');
+        const element = fixture('textAvatar');
 
         assert.equal(element.querySelector('#slotTextAvatar > span').textContent, 'T');
         assert.equal(element.querySelector('#slotTextAvatar').slot, 'avatar');
@@ -69,21 +70,23 @@
       });
 
       test('icon avatar is displayed', function () {
-        var element = fixture('iconAvatar');
+		const element = fixture('iconAvatar');
 
         assert.equal(element.querySelector('#slotIconAvatar > iron-icon').icon, 'icons:favorite');
         assert.equal(element.querySelector('#slotIconAvatar').slot, 'avatar');
         assert.equal(PaperChip.is, 'paper-chip');
       });
-
+	 
       test('label is displayed', function () {
-        var element = fixture('label');
+		document.addEventListener('WebComponentsReady', function(){
+			const element = fixture('label');
 
-        assert.equal(element.label, 'test');
+			assert.equal(element.label, 'test');
+		});
       });
 
       test('label and close icon is displayed', function () {
-        var element = fixture('label and closable');
+        const element = fixture('labelAndClosable');
 
         assert.isNotNull(element.shadowRoot.querySelectorAll('iron-icon'));
         assert.equal(element.label, 'test');
@@ -91,6 +94,7 @@
       });
 
     });
+	  
   </script>
 </body>
 
