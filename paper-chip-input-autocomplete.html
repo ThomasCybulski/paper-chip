@@ -92,6 +92,7 @@ Custom property | Description | Default
 		</style>
 
 		<iron-a11y-keys target="paperInput" keys="backspace" on-keys-pressed="_onKeyBackspace"></iron-a11y-keys>
+		<iron-a11y-keys target="paperInput" keys="esc" on-keys-pressed="_onKeyEsc"></iron-a11y-keys>
 
 		<div>
 			<paper-input id="paperInput" label="[[label]]" on-keyup="_findItems" value="{{_inputValue}}" autofocus="{{autofocus}}">
@@ -210,6 +211,12 @@ Custom property | Description | Default
 					(this._inputValue == '' || this._inputValue == undefined)) {
 					this._removeLastItem();
 				}
+			}
+
+			_onKeyEsc(event) {
+				this._inputValue = '';
+				this._hideAutocomplete();
+				this.$.paperInput.focus();
 			}
 
 			_removeLastItem() {
