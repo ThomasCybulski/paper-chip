@@ -397,6 +397,7 @@ $ polymer serve
   label="+Add (Enter) -Delete (Backspace)" 
   closable></paper-chip-input-autocomplete>
 ```
+
 ## Browser Support
 
 ![Edge](https://thomascybulski.github.io/browsers/edge_48x48.png) | ![Chrome](https://thomascybulski.github.io/browsers/chrome_48x48.png) | ![Firefox](https://thomascybulski.github.io/browsers/firefox_48x48.png) | ![Opera](https://thomascybulski.github.io/browsers/opera_48x48.png) | ![Safari](https://thomascybulski.github.io/browsers/safari-ios_48x48.png)
