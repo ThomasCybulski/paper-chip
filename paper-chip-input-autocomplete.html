@@ -94,6 +94,9 @@ Custom property | Description | Default
 		<iron-a11y-keys target="paperInput" keys="backspace" on-keys-pressed="_onKeyBackspace"></iron-a11y-keys>
 		<iron-a11y-keys target="paperInput" keys="esc" on-keys-pressed="_onKeyEsc"></iron-a11y-keys>
 
+		<iron-a11y-keys target="paperInput" keys="down" on-keys-pressed="_onKeyUpOrDown"></iron-a11y-keys>
+		<iron-a11y-keys target="paperInput" keys="up" on-keys-pressed="_onKeyUpOrDown"></iron-a11y-keys>
+
 		<div>
 			<paper-input id="paperInput" label="[[label]]" on-keyup="_findItems" value="{{_inputValue}}" autofocus="{{autofocus}}">
 				<div id="slot2" slot="prefix">
@@ -217,6 +220,10 @@ Custom property | Description | Default
 				this._inputValue = '';
 				this._hideAutocomplete();
 				this.$.paperInput.focus();
+			}
+
+			_onKeyUpOrDown(event) {
+				this.$.listbox.focus();
 			}
 
 			_removeLastItem() {
