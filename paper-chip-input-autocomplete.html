@@ -100,7 +100,7 @@ Custom property | Description | Default
 		<div>
 			<paper-input id="paperInput" label="[[label]]" on-keyup="_findItems" value="{{_inputValue}}" autofocus="{{autofocus}}">
 				<div id="slot2" slot="prefix">
-					<dom-repeat items="[[_items]]">
+					<dom-repeat items="[[items]]">
 						<template>
 							[[item.name]]
 							<paper-chip id="paper-chip-[[item]]-[[index]]" 
@@ -179,7 +179,7 @@ Custom property | Description | Default
 						type: Boolean,
 						value: false
 					},
-					_items: {
+					items: {
 						type: Array,
 						value: function () {
 							return [];
@@ -210,7 +210,7 @@ Custom property | Description | Default
 			}
 
 			_onKeyBackspace(event) {
-				if (this._items.length != 0 &&
+				if (this.items.length != 0 &&
 					(this._inputValue == '' || this._inputValue == undefined)) {
 					this._removeLastItem();
 				}
@@ -227,12 +227,12 @@ Custom property | Description | Default
 			}
 
 			_removeLastItem() {
-				if (this._items.length != 0) {
-					let lastItemIndex = this._items.length - 1;
-					let lastItemname = this._items[lastItemIndex];
+				if (this.items.length != 0) {
+					let lastItemIndex = this.items.length - 1;
+					let lastItemname = this.items[lastItemIndex];
 
 					this._throwChipRemovedEvent(lastItemname);
-					this.splice('_items', -1, 1);
+					this.splice('items', -1, 1);
 				}
 			}
 
@@ -259,7 +259,7 @@ Custom property | Description | Default
 			_filterItems() {
 				let filteredByString = this.source.filter(element => this._filterBySearchString(element));
 
-				if (filteredByString.length > 0 && this._items.length) {
+				if (filteredByString.length > 0 && this.items.length) {
 					this._filteredSource = filteredByString.filter(element => this._filterByExistingPaperChip(
 						element));;
 				} else {
@@ -268,7 +268,7 @@ Custom property | Description | Default
 			}
 
 			_filterByExistingPaperChip(element) {
-				return this._items.indexOf(element.text) == -1;
+				return this.items.indexOf(element.text) == -1;
 			}
 
 			_filterBySearchString(element) {
@@ -283,8 +283,8 @@ Custom property | Description | Default
 			}
 
 			_saveTag(name) {
-				if (this._items.indexOf(name) == -1) {
-					this.push('_items', name);
+				if (this.items.indexOf(name) == -1) {
+					this.push('items', name);
 				}
 			}
 
@@ -293,9 +293,9 @@ Custom property | Description | Default
 			}
 
 			_removeChip(event) {
-				const index = this._items.indexOf(event.detail.chipLabel);
+				const index = this.items.indexOf(event.detail.chipLabel);
 				if (index != -1) {
-					this.splice('_items', index, 1);
+					this.splice('items', index, 1);
 				}
 			}
 
