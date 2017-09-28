@@ -98,7 +98,7 @@ Custom property | Description | Default
 		<iron-a11y-keys target="paperInput" keys="up" on-keys-pressed="_onKeyUpOrDown"></iron-a11y-keys>
 
 		<div>
-			<paper-input id="paperInput" label="[[label]]" on-keyup="_findItems" value="{{_inputValue}}" autofocus="{{autofocus}}">
+			<paper-input disabled$="[[disabled]]" id="paperInput" label="[[label]]" on-keyup="_findItems" value="{{_inputValue}}" autofocus="{{autofocus}}">
 				<div id="slot2" slot="prefix">
 					<dom-repeat items="[[_items]]">
 						<template>
@@ -179,6 +179,15 @@ Custom property | Description | Default
 						type: Boolean,
 						value: false
 					},
+					
+					/**
+					* Set to true to disable this input.
+					*/
+					disabled: {
+						type: Boolean,
+						value: false,
+					},
+					
 					_items: {
 						type: Array,
 						value: function () {
