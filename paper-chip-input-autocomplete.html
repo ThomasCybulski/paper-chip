@@ -179,12 +179,17 @@ Custom property | Description | Default
 						type: Boolean,
 						value: false
 					},
+					
+					/**
+ 					* The list of items, which will be set as paper-chips.
+ 					*/
 					items: {
 						type: Array,
 						value: function () {
 							return [];
 						}
 					},
+
 					_selectedSuggestionId: {
 						type: Object,
 						observer: '_selectPaperItem'
