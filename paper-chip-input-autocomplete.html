@@ -109,7 +109,10 @@ Custom property | Description | Default
 					<dom-repeat items="[[items]]">
 						<template>
 							[[item.name]]
-							<paper-chip id="paper-chip-[[item]]-[[index]]" label="[[item]]" closable$="[[closable]]" on-chip-removed="_removeChip">
+							<paper-chip id="paper-chip-[[item]]-[[index]]" 
+										label="[[item]]" 
+										closable$="[[closable]]" 
+										on-chip-removed="_removeChip">
 							</paper-chip>
 						</template>
 					</dom-repeat>
