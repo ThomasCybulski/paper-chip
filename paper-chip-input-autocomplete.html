@@ -36,6 +36,11 @@ Custom property | Description | Default
 <dom-module id="paper-chip-input-autocomplete">
 	<template>
 		<style>
+			:host {
+				display: block;
+				position: relative;
+			}
+
 			paper-item:hover {
 				background: #eee;
 				color: #333;
@@ -43,13 +48,14 @@ Custom property | Description | Default
 			}
 
 			paper-item.active,
-			 :host ::content paper-item.active {
+			:host ::content paper-item.active {
 				background: #eee;
 				color: #333;
 			}
 
 			paper-item {
 				height: 0px; /* To resolve `min-height` bug on IE 11 */
+				
 				--paper-item-selected-weight: normal;
 				--paper-item-min-height: var(--paper-chip-autocomplete-item-height, 48px);
 				--paper-item: {
@@ -103,10 +109,7 @@ Custom property | Description | Default
 					<dom-repeat items="[[items]]">
 						<template>
 							[[item.name]]
-							<paper-chip id="paper-chip-[[item]]-[[index]]" 
-										label="[[item]]" 
-										closable$="[[closable]]" 
-										on-chip-removed="_removeChip">
+							<paper-chip id="paper-chip-[[item]]-[[index]]" label="[[item]]" closable$="[[closable]]" on-chip-removed="_removeChip">
 							</paper-chip>
 						</template>
 					</dom-repeat>
@@ -179,19 +182,19 @@ Custom property | Description | Default
 						type: Boolean,
 						value: false
 					},
-					
-          			/**
- 					* The list of items, which will be set as paper-chips.
- 					*/
+
+					/**
+					* The list of items, which will be set as paper-chips.
+					*/
 					items: {
 						type: Array,
 						value: function () {
 							return [];
 						}
 					},
-          
-         			/**
-          			* Set to true to disable this input.
+
+					/**
+					* Set to true to disable this input.
 					*/
 					disabled: {
 						type: Boolean,
