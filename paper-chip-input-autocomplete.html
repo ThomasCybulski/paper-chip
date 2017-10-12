@@ -110,7 +110,12 @@ Custom property | Description | Default
 						 label="[[label]]" 
 						 on-keyup="_findItems" 
 						 value="{{_inputValue}}" 
-						 autofocus="{{autofocus}}">
+						 autofocus="{{autofocus}}"
+						 allowed-pattern="[[allowedPattern]]"
+						 pattern="[[pattern]]"
+						 required$="[[required]]"
+						 auto-validate$="[[autoValidate]]"
+						 error-message="[[errorMessage]]">
 						 <div id="slot2" slot="prefix">
 							<dom-repeat items="[[items]]">
 								<template>
@@ -222,6 +227,50 @@ Custom property | Description | Default
 						value: false
 					},
 
+					/**
+					* Set to true to mark the input as required.
+					*/
+					required: {
+						type: Boolean,
+						value: false
+					},
+
+					/**
+					* Set to true to auto-validate the input value when it changes.
+					*/
+					autoValidate: {
+						type: Boolean,
+						value: false
+					},
+
+					/**
+					* The error message to display when the input is invalid.
+					*/
+					errorMessage: {
+						type: String
+					},
+
+					/**
+					* A pattern to validate the input with.
+					*/
+					pattern: {
+						type: String
+					},
+
+					/**
+					* Set this to specify the pattern.
+					*/
+					allowedPattern: {
+						type: String
+					},
+					_autoValidate: {
+						type: Boolean,
+						value: false
+					},
+					_required: {
+						type: Boolean,
+						value: false
+					},
 					_selectedSuggestionId: {
 						type: Object,
 						observer: '_selectPaperItem'
@@ -246,6 +295,12 @@ Custom property | Description | Default
 				};
 			}
 
+			connectedCallback() {
+				super.connectedCallback();
+				this._autoValidate = this.autoValidate;
+				this._required = this.required;				
+			}
+
 			_isEmpty(item) {
 				return item.length > 0;
 			}
@@ -258,6 +313,8 @@ Custom property | Description | Default
 							chipLabel: this._inputValue
 						}
 					}));
+					this.required = false;
+					this.autoValidate = false;
 					this._inputValue = '';
 				}
 			}
@@ -266,6 +323,11 @@ Custom property | Description | Default
 				if (this.items.length != 0 &&
 					(this._inputValue == '' || this._inputValue == undefined)) {
 					this._removeLastItem();
+				}
+
+				if(this.items.length == 0) {
+					this.autoValidate = this._autoValidate;
+					this.required = this._required;
 				}
 			}
 
@@ -329,6 +391,8 @@ Custom property | Description | Default
 
 			_selectPaperItem(event) {
 				this._saveTag(event.model.item.text);
+				this.required = false;
+				this.autoValidate = false;
 				this._inputValue = '';
 				this._autocompleteClass = "hide";
 				this.$.paperInput.focus();
