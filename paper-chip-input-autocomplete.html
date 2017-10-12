@@ -97,6 +97,7 @@ Custom property | Description | Default
 			}
 		</style>
 
+		<iron-a11y-keys target="paperInput" keys="enter" on-keys-pressed="_onKeyEnter"></iron-a11y-keys>
 		<iron-a11y-keys target="paperInput" keys="backspace" on-keys-pressed="_onKeyBackspace"></iron-a11y-keys>
 		<iron-a11y-keys target="paperInput" keys="esc" on-keys-pressed="_onKeyEsc"></iron-a11y-keys>
 
@@ -104,33 +105,42 @@ Custom property | Description | Default
 		<iron-a11y-keys target="paperInput" keys="up" on-keys-pressed="_onKeyUpOrDown"></iron-a11y-keys>
 
 		<div>
-			<paper-input disabled$="[[disabled]]" id="paperInput" label="[[label]]" on-keyup="_findItems" value="{{_inputValue}}" autofocus="{{autofocus}}">
-				<div id="slot2" slot="prefix">
-					<dom-repeat items="[[items]]">
-						<template>
-							[[item.name]]
-							<paper-chip id="paper-chip-[[item]]-[[index]]" 
-										label="[[item]]" 
-										closable$="[[closable]]" 
-										on-chip-removed="_removeChip">
-							</paper-chip>
-						</template>
-					</dom-repeat>
-				</div>
+			<paper-input id="paperInput" 
+						 disabled$="[[disabled]]" 
+						 label="[[label]]" 
+						 on-keyup="_findItems" 
+						 value="{{_inputValue}}" 
+						 autofocus="{{autofocus}}">
+						 <div id="slot2" slot="prefix">
+							<dom-repeat items="[[items]]">
+								<template>
+									[[item.name]]
+									<paper-chip id="paper-chip-[[item]]-[[index]]" 
+												label="[[item]]" 
+												closable$="[[closable]]" 
+												on-chip-removed="_removeChip">
+									</paper-chip>
+								</template>
+							</dom-repeat>
+						 </div>
 			</paper-input>
 		</div>
 
-		<paper-material class$="[[_autocompleteClass]]" elevation="1">
-			<paper-listbox id="listbox">
-				<dom-repeat items="[[_filteredSource]]">
-					<template>
-						<paper-item id="paperItemAutocomplete" on-tap="_selectPaperItem" closable$="[[closable]]">[[item.text]]
-							<paper-ripple></paper-ripple>
-						</paper-item>
-					</template>
-				</dom-repeat>
-			</paper-listbox>
-		</paper-material>
+		<dom-if if="[[_isEmpty(_filteredSource)]]">
+			<template>
+				<paper-material class$="[[_autocompleteClass]]" elevation="1">
+					<paper-listbox id="listbox">
+						<dom-repeat items="[[_filteredSource]]">
+								<template>
+									<paper-item id="paperItemAutocomplete" on-tap="_selectPaperItem" closable$="[[closable]]">[[item.text]]
+										<paper-ripple></paper-ripple>
+									</paper-item>
+								</template>
+							</dom-repeat>
+					</paper-listbox>
+				</paper-material>
+			</template>
+		</dom-if>
 
 	</template>
 
@@ -203,6 +213,15 @@ Custom property | Description | Default
 						type: Boolean,
 						value: false,
 					},
+
+					/**
+					* True, to add additional items.
+					*/
+					additionalItems: {
+						type: Boolean,
+						value: false
+					},
+
 					_selectedSuggestionId: {
 						type: Object,
 						observer: '_selectPaperItem'
@@ -227,6 +246,22 @@ Custom property | Description | Default
 				};
 			}
 
+			_isEmpty(item) {
+				return item.length > 0;
+			}
+
+			_onKeyEnter() {
+				if (this.additionalItems && (this._inputValue != '' && this._inputValue != undefined)) {
+					this._saveTag(this._inputValue);
+					this.dispatchEvent(new CustomEvent('chip-created', {
+						detail: {
+							chipLabel: this._inputValue
+						}
+					}));
+					this._inputValue = '';
+				}
+			}
+
 			_onKeyBackspace(event) {
 				if (this.items.length != 0 &&
 					(this._inputValue == '' || this._inputValue == undefined)) {
@@ -241,7 +276,7 @@ Custom property | Description | Default
 			}
 
 			_onKeyUpOrDown(event) {
-				this.$.listbox.focus();
+				this.shadowRoot.querySelector('#listbox').focus();
 			}
 
 			_removeLastItem() {
@@ -278,8 +313,7 @@ Custom property | Description | Default
 				let filteredByString = this.source.filter(element => this._filterBySearchString(element));
 
 				if (filteredByString.length > 0 && this.items.length) {
-					this._filteredSource = filteredByString.filter(element => this._filterByExistingPaperChip(
-						element));;
+					this._filteredSource = filteredByString.filter(element => this._filterByExistingPaperChip(element));
 				} else {
 					this._filteredSource = filteredByString;
 				}
@@ -294,7 +328,7 @@ Custom property | Description | Default
 			}
 
 			_selectPaperItem(event) {
-				this._saveTag(event.model.__data.item.text);
+				this._saveTag(event.model.item.text);
 				this._inputValue = '';
 				this._autocompleteClass = "hide";
 				this.$.paperInput.focus();

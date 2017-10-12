@@ -119,6 +119,14 @@ $ polymer serve
     <link rel="import" href="paper-chip-input.html">
     <link rel="import" href="paper-chip.html">
     <next-code-block></next-code-block>
+
+	<script>
+
+    function validate() {
+        document.getElementById('inputForValidation').validate();
+	}
+	
+	</script>
   </template>
 </custom-element-demo>
 ```
@@ -132,6 +140,14 @@ $ polymer serve
 </paper-chip-input>
 
 <paper-chip-input disabled label="+Add (Enter) -Delete (Backspace)" items='["one", "two", "three"]' closable></paper-chip-input>
+
+<paper-chip-input label="paper-chip-input cannot be empty" required auto-validate error-message="needs some text!" closable></paper-chip-input>
+
+<paper-chip-input label="this input will only let you type letters" auto-validate allowed-pattern="[a-zA-Z]" closable></paper-chip-input>
+
+<paper-chip-input style="display: inline-block; width: calc(100% - 75px);" id="inputForValidation" required label="this input is manually validated" pattern="[a-zA-Z]*" error-message="letters only!"></paper-chip-input>
+<button onclick="validate()">Validate</button>
+
 ```
 
 ## Example: Autocomplete field with tags
@@ -410,5 +426,5 @@ Latest ✔ | Latest ✔ | Latest ✔ | Latest ✔ | Latest ✔ |
 2. Create your feature branch: `git checkout -b my-new-feature`
 3. Commit your changes: `git commit -m 'Add some feature'`
 4. Push to the branch: `git push origin my-new-feature`
-5. Submit a pull request :D
+5. Submit a pull request 🤓
 
