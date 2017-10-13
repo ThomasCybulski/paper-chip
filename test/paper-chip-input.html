@@ -2,73 +2,73 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
 
-    <title>paper-chip-input test</title>
+	<title>paper-chip-input test</title>
 
-    <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
-    <script src="../../web-component-tester/browser.js"></script>
+	<script src="../../webcomponentsjs/webcomponents-loader.js"></script>
+	<script src="../../web-component-tester/browser.js"></script>
 
-    <link rel="import" href="../paper-chip-input.html">
+	<link rel="import" href="../paper-chip-input.html">
 </head>
 
 <body>
 
-    <test-fixture id="basic">
-        <template>
-            <paper-chip-input></paper-chip-input>
-        </template>
-    </test-fixture>
+	<test-fixture id="basic">
+		<template>
+			<paper-chip-input></paper-chip-input>
+		</template>
+	</test-fixture>
 
-    <test-fixture id="label">
-        <template>
-            <paper-chip-input label="test"></paper-chip-input>
-        </template>
-    </test-fixture>
+	<test-fixture id="label">
+		<template>
+			<paper-chip-input label="test"></paper-chip-input>
+		</template>
+	</test-fixture>
 
-    <test-fixture id="closable items">
-        <template>
-            <paper-chip-input id="paperChipInputWithItems" label="test" closable></paper-chip-input>
-        </template>
-    </test-fixture>
+	<test-fixture id="closable items">
+		<template>
+			<paper-chip-input id="paperChipInputWithItems" label="test" closable></paper-chip-input>
+		</template>
+	</test-fixture>
 
-    <script>
-        suite('paper-chip-input', function () {
+	<script>
+		suite('paper-chip-input', function () {
 
-            test('instantiating the element works', function () {
-                assert.equal(PaperChipInput.is, 'paper-chip-input');
-            });
+			test('instantiating the element works', function () {
+				assert.equal(PaperChipInput.is, 'paper-chip-input');
+			});
 
-            test('label is displayed', function () {
-				document.addEventListener('WebComponentsReady', function(){
+			test('label is displayed', function () {
+				document.addEventListener('WebComponentsReady', function () {
 					const element = fixture('label');
-		
+
 					assert.equal(element.label, 'test');
 				});
-            });
+			});
 
-            test('closable items are displayed', function (done) {
+			test('closable items are displayed', function (done) {
 
-                var element = fixture('closable items');
-                var paperChips = [
-                    'One',
-                    'Two',
-                    'Three'
-                ];
-                
-                element.items = paperChips;
+				var element = fixture('closable items');
+				var paperChips = [
+					'One',
+					'Two',
+					'Three'
+				];
 
-                flush(function () {
-                    assert.equal(element.shadowRoot.querySelector('#slot2').querySelectorAll('paper-chip').length, paperChips.length);
-                    done();
-                });
+				element.items = paperChips;
 
-                assert.equal(element.label, 'test');
-            });
+				flush(function () {
+					assert.equal(element.shadowRoot.querySelector('#slot2').querySelectorAll('paper-chip').length, paperChips.length);
+					done();
+				});
 
-        });
-    </script>ti
+				assert.equal(element.label, 'test');
+			});
+
+		});
+	</script>ti
 </body>
 
 </html>

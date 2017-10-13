@@ -53,24 +53,29 @@ Custom property | Description | Default
 		<iron-a11y-keys target="paperInput" keys="backspace" on-keys-pressed="_onKeyBackspace"></iron-a11y-keys>
 
 		<paper-input id="paperInput"
-					always-float-label$="[[alwaysFloatLabel]]"
-					no-label-float$="[[noLabelFloat]]"
-					disabled$="[[disabled]]"
-					value="{{_value}}"
-					label="[[label]]">
-			<slot id="slot" name="input" slot="prefix"></slot>
-			<div id="slot2" slot="prefix">
-				<dom-repeat items="[[items]]">
-					<template>
-						[[item.name]]
-						<paper-chip id="paper-chip-[[item]]-[[index]]" 
-									label="[[item]]" 
-									closable$="[[closable]]" 
-									on-chip-removed="_removeChip">
-						</paper-chip>
-					</template>
-				</dom-repeat>
-			</div>
+					 always-float-label$="[[alwaysFloatLabel]]"
+					 no-label-float$="[[noLabelFloat]]"
+					 disabled$="[[disabled]]"
+					 value="{{_value}}"
+					 label="[[label]]"
+					 allowed-pattern="[[allowedPattern]]"
+					 pattern="[[pattern]]"
+					 required$="[[required]]"
+					 auto-validate$="[[autoValidate]]"
+					 error-message="[[errorMessage]]">
+					 <slot id="slot" name="input" slot="prefix"></slot>
+					 <div id="slot2" slot="prefix">
+						<dom-repeat items="[[items]]">
+							<template>
+								[[item.name]]
+								<paper-chip id="paper-chip-[[item]]-[[index]]" 
+											label="[[item]]" 
+											closable$="[[closable]]" 
+											on-chip-removed="_removeChip">
+								</paper-chip>
+							</template>
+						</dom-repeat>
+					</div>
 		</paper-input>
 
 	</template>
@@ -134,12 +139,73 @@ Custom property | Description | Default
 						type: Boolean,
 						value: false
 					},
+
+					/**
+					* Set to true to mark the input as required.
+					*/
+					required: {
+						type: Boolean,
+						value: false
+					},
+
+					/**
+					* Set to true to auto-validate the input value when it changes.
+					*/
+					autoValidate: {
+						type: Boolean,
+						value: false
+					},
+					_autoValidate: {
+						type: Boolean,
+						value: false
+					},
+					_required: {
+						type: Boolean,
+						value: false
+					},
+					/**
+					* The error message to display when the input is invalid.
+					*/
+					errorMessage: {
+						type: String
+					},
+
+					/**
+					* A pattern to validate the input with.
+					*/
+					pattern: {
+						type: String
+					},
+
+					/**
+					* Set this to specify the pattern.
+					*/
+					allowedPattern: {
+						type: String
+					},
 					_value: {
 						type: String
 					}
 				};
 			}
 
+			/**
+			* Validates the input element and sets an error style if needed.
+			*
+			* @return {boolean}
+			*/
+			validate() {
+				if(this.items.length == 0) {
+					return this.$.paperInput.validate();
+				}
+			}
+
+			connectedCallback() {
+				super.connectedCallback();
+				this._autoValidate = this.autoValidate;
+				this._required = this.required;				
+			}
+			
 			_onKeyEnter() {
 				if (this._value != '' && this._value != undefined) {
 					this._saveTag(this._value);
@@ -148,17 +214,17 @@ Custom property | Description | Default
 							chipLabel: this._value
 						}
 					}));
+					this.required = false;
+					this.autoValidate = false;
 					this._value = '';
 				}
 			}
 
 			_onKeyBackspace() {
-				if (this.items.length != 0 &&
-					(this._value == '' || this._value == undefined)) {
+				if (this.items.length != 0 && (this._value == '' || this._value == undefined)) {
 					this._removeLastItem();
-				} else if (this.$.slot.assignedNodes().length > 0 &&
-					(this._value == '' || this._value == undefined)) {
-					var distributedNodes = this.$.slot.assignedNodes({
+				} else if (this.$.slot.assignedNodes().length > 0 && (this._value == '' || this._value == undefined)) {
+					let distributedNodes = this.$.slot.assignedNodes({
 						flatten: true
 					})
 					let lastPaperChipIndex = 0;
@@ -170,6 +236,11 @@ Custom property | Description | Default
 					this._throwChipRemovedEvent(this.childNodes[lastPaperChipIndex].label);
 					this.removeChild(this.childNodes[lastPaperChipIndex]);
 				}
+
+				if(this.items.length == 0 && this.$.slot.assignedNodes().length == 0) {
+					this.autoValidate = this._autoValidate;
+					this.required = this._required;
+				}
 			}
 
 			_saveTag(name) {
@@ -179,7 +250,7 @@ Custom property | Description | Default
 			}
 
 			_removeChip(event) {
-				var index = this.items.indexOf(event.detail.chipLabel);
+				const index = this.items.indexOf(event.detail.chipLabel);
 				if (index != -1) {
 					this.splice('items', index, 1);
 				}

@@ -2,100 +2,100 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
 
-  <title>paper-chip test</title>
+	<title>paper-chip test</title>
 
-  <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
-  <script src="../../web-component-tester/browser.js"></script>
+	<script src="../../webcomponentsjs/webcomponents-loader.js"></script>
+	<script src="../../web-component-tester/browser.js"></script>
 
-  <link rel="import" href="../paper-chip.html">
+	<link rel="import" href="../paper-chip.html">
 </head>
 
 <body>
 
-  <test-fixture id="basic">
-    <template>
-      <paper-chip></paper-chip>
-    </template>
-  </test-fixture>
+	<test-fixture id="basic">
+		<template>
+			<paper-chip></paper-chip>
+		</template>
+	</test-fixture>
 
-  <test-fixture id="textAvatar">
-    <template>
-      <paper-chip>
-        <span id="slotTextAvatar" slot="avatar">
-          <span>T</span>
-        </span>
-      </paper-chip>
-    </template>
-  </test-fixture>
+	<test-fixture id="textAvatar">
+		<template>
+			<paper-chip>
+				<span id="slotTextAvatar" slot="avatar">
+					<span>T</span>
+				</span>
+			</paper-chip>
+		</template>
+	</test-fixture>
 
-  <test-fixture id="iconAvatar">
-    <template>
-      <paper-chip>
-        <span id="slotIconAvatar" slot="avatar">
-         <iron-icon icon="icons:favorite"></iron-icon>
-        </span>
-      </paper-chip>
-    </template>
-  </test-fixture>
+	<test-fixture id="iconAvatar">
+		<template>
+			<paper-chip>
+				<span id="slotIconAvatar" slot="avatar">
+					<iron-icon icon="icons:favorite"></iron-icon>
+				</span>
+			</paper-chip>
+		</template>
+	</test-fixture>
 
-  <test-fixture id="label">
-    <template>
-      <paper-chip label="test"></paper-chip>
-    </template>
-  </test-fixture>
+	<test-fixture id="label">
+		<template>
+			<paper-chip label="test"></paper-chip>
+		</template>
+	</test-fixture>
 
-  <test-fixture id="labelAndClosable">
-    <template>
-      <paper-chip label="test" closable></paper-chip>
-    </template>
-  </test-fixture>
+	<test-fixture id="labelAndClosable">
+		<template>
+			<paper-chip label="test" closable></paper-chip>
+		</template>
+	</test-fixture>
 
-  <script>
-	  
-    suite('paper-chip', function () {
+	<script>
 
-      test('instantiating the element works', function () {
-        assert.equal(PaperChip.is, 'paper-chip');
-      });
+		suite('paper-chip', function () {
 
-      test('text avatar is displayed', function () {
-        const element = fixture('textAvatar');
+			test('instantiating the element works', function () {
+				assert.equal(PaperChip.is, 'paper-chip');
+			});
 
-        assert.equal(element.querySelector('#slotTextAvatar > span').textContent, 'T');
-        assert.equal(element.querySelector('#slotTextAvatar').slot, 'avatar');
-        assert.equal(PaperChip.is, 'paper-chip');
-      });
+			test('text avatar is displayed', function () {
+				const element = fixture('textAvatar');
 
-      test('icon avatar is displayed', function () {
-		const element = fixture('iconAvatar');
+				assert.equal(element.querySelector('#slotTextAvatar > span').textContent, 'T');
+				assert.equal(element.querySelector('#slotTextAvatar').slot, 'avatar');
+				assert.equal(PaperChip.is, 'paper-chip');
+			});
 
-        assert.equal(element.querySelector('#slotIconAvatar > iron-icon').icon, 'icons:favorite');
-        assert.equal(element.querySelector('#slotIconAvatar').slot, 'avatar');
-        assert.equal(PaperChip.is, 'paper-chip');
-      });
-	 
-      test('label is displayed', function () {
-		document.addEventListener('WebComponentsReady', function(){
-			const element = fixture('label');
+			test('icon avatar is displayed', function () {
+				const element = fixture('iconAvatar');
 
-			assert.equal(element.label, 'test');
+				assert.equal(element.querySelector('#slotIconAvatar > iron-icon').icon, 'icons:favorite');
+				assert.equal(element.querySelector('#slotIconAvatar').slot, 'avatar');
+				assert.equal(PaperChip.is, 'paper-chip');
+			});
+
+			test('label is displayed', function () {
+				document.addEventListener('WebComponentsReady', function () {
+					const element = fixture('label');
+
+					assert.equal(element.label, 'test');
+				});
+			});
+
+			test('label and close icon is displayed', function () {
+				const element = fixture('labelAndClosable');
+
+				assert.isNotNull(element.shadowRoot.querySelectorAll('iron-icon'));
+				assert.equal(element.label, 'test');
+				assert.equal(element.closable, true);
+			});
+
 		});
-      });
 
-      test('label and close icon is displayed', function () {
-        const element = fixture('labelAndClosable');
-
-        assert.isNotNull(element.shadowRoot.querySelectorAll('iron-icon'));
-        assert.equal(element.label, 'test');
-        assert.equal(element.closable, true);
-      });
-
-    });
-	  
-  </script>
+	</script>
 </body>
 
 </html>
