@@ -22,6 +22,7 @@ Custom property | Description | Default
 `--paper-chip-close-color` | The paper-chip close icon color | `#a6a6a6`
 `--paper-chip-font-size` | The paper-chip font size | `13px`
 `--paper-chip-font-family` | The paper-chip font size | `"Roboto", sans-serif`
+`--paper-chip-close-label` | Mixin for the paper-chip close label | `{}`
 
 @element paper-chip
 @demo demo/index.html
@@ -46,7 +47,7 @@ Custom property | Description | Default
 			}
 
 			.chip:active {
-				background: var(--paper-chip-active-background-color, #d6d6d6);
+				background: var(--paper-chip-active-background-color, #D6D6D6);
 			}
 
 			.chip .closeIcon {
@@ -76,6 +77,7 @@ Custom property | Description | Default
 
 			.close {
 				top: -1px;
+				@apply --paper-chip-close-label;
 			}
 
 			iron-icon {

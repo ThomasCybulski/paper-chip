@@ -95,6 +95,10 @@ Custom property | Description | Default
 					font-size: var(--paper-chip-input-autocomplete-label-font-size, 13px);
 				}
 			}
+
+			paper-chip {
+				@apply --paper-chip-close-label;
+			}
 		</style>
 
 		<iron-a11y-keys target="paperInput" keys="enter" on-keys-pressed="_onKeyEnter"></iron-a11y-keys>
