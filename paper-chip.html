@@ -23,6 +23,7 @@ Custom property | Description | Default
 `--paper-chip-font-size` | The paper-chip font size | `13px`
 `--paper-chip-font-family` | The paper-chip font size | `"Roboto", sans-serif`
 `--paper-chip-close-label` | Mixin for the paper-chip close label | `{}`
+`--paper-chip` | Mixin for the paper-chip | `{}`
 
 @element paper-chip
 @demo demo/index.html
@@ -44,6 +45,7 @@ Custom property | Description | Default
 				background-color: var(--paper-chip-background-color, #E0E0E0);
 				margin-bottom: 5px;
 				margin-right: 5px;
+				@apply --paper-chip;
 			}
 
 			.chip:active {
