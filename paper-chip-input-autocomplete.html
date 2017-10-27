@@ -55,7 +55,7 @@ Custom property | Description | Default
 
 			paper-item {
 				height: 0px; /* To resolve `min-height` bug on IE 11 */
-				
+
 				--paper-item-selected-weight: normal;
 				--paper-item-min-height: var(--paper-chip-autocomplete-item-height, 48px);
 				--paper-item: {
@@ -109,11 +109,11 @@ Custom property | Description | Default
 		<iron-a11y-keys target="paperInput" keys="up" on-keys-pressed="_onKeyUpOrDown"></iron-a11y-keys>
 
 		<div>
-			<paper-input id="paperInput" 
-						 disabled$="[[disabled]]" 
-						 label="[[label]]" 
-						 on-keyup="_findItems" 
-						 value="{{_inputValue}}" 
+			<paper-input id="paperInput"
+						 disabled$="[[disabled]]"
+						 label="[[label]]"
+						 on-keyup="_findItems"
+						 value="{{_inputValue}}"
 						 autofocus="{{autofocus}}"
 						 allowed-pattern="[[allowedPattern]]"
 						 pattern="[[pattern]]"
@@ -124,9 +124,9 @@ Custom property | Description | Default
 							<dom-repeat items="[[items]]">
 								<template>
 									[[item.name]]
-									<paper-chip id="paper-chip-[[item]]-[[index]]" 
-												label="[[item]]" 
-												closable$="[[closable]]" 
+									<paper-chip id="paper-chip-[[item]]-[[index]]"
+												label="[[item]]"
+												closable$="[[closable]]"
 												on-chip-removed="_removeChip">
 									</paper-chip>
 								</template>
@@ -302,7 +302,7 @@ Custom property | Description | Default
 			connectedCallback() {
 				super.connectedCallback();
 				this._autoValidate = this.autoValidate;
-				this._required = this.required;				
+				this._required = this.required;
 			}
 
 			_isEmpty(item) {
@@ -342,7 +342,11 @@ Custom property | Description | Default
 			}
 
 			_onKeyUpOrDown(event) {
-				this.shadowRoot.querySelector('#listbox').focus();
+				let lb = this.shadowRoot.querySelector('#listbox');
+
+				if (lb) {
+					lb.focus();
+				}
 			}
 
 			_removeLastItem() {
