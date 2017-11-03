@@ -54,14 +54,15 @@ Custom property | Description | Default
 
 		<paper-input id="paperInput"
 					 always-float-label$="[[alwaysFloatLabel]]"
+					 auto-validate$="[[autoValidate]]"
 					 no-label-float$="[[noLabelFloat]]"
 					 disabled$="[[disabled]]"
+					 readonly$="[[readonly]]"
+					 required$="[[required]]"
 					 value="{{_value}}"
 					 label="[[label]]"
 					 allowed-pattern="[[allowedPattern]]"
 					 pattern="[[pattern]]"
-					 required$="[[required]]"
-					 auto-validate$="[[autoValidate]]"
 					 error-message="[[errorMessage]]">
 					 <slot id="slot" name="input" slot="prefix"></slot>
 					 <div id="slot2" slot="prefix">
@@ -182,6 +183,14 @@ Custom property | Description | Default
 					*/
 					allowedPattern: {
 						type: String
+					},
+					
+					/**
+					* Set to true to prevent to change the input value.
+					*/
+					readonly: {
+						type: Boolean,
+						value: false
 					},
 					_value: {
 						type: String

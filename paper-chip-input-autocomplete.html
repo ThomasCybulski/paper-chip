@@ -111,6 +111,7 @@ Custom property | Description | Default
 		<div>
 			<paper-input id="paperInput"
 						 disabled$="[[disabled]]"
+						 readonly$="[[readonly]]"
 						 label="[[label]]"
 						 on-keyup="_findItems"
 						 value="{{_inputValue}}"
@@ -266,6 +267,14 @@ Custom property | Description | Default
 					*/
 					allowedPattern: {
 						type: String
+					},
+					
+					/**
+					* Set to true to prevent to change the input value.
+					*/
+					readonly: {
+						type: Boolean,
+						value: false
 					},
 					_autoValidate: {
 						type: Boolean,
