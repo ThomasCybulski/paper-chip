@@ -186,7 +186,7 @@ Custom property | Description | Default
 					composed: true,
 					bubbles: true
 				}));
-				if (this.parentNode.id != 'slot2') {
+				if (this.parentNode.id != 'slot2' && this.parentNode.querySelector("dom-repeat") === null) {
 					this.parentNode.removeChild(this);
 				}
 			}
