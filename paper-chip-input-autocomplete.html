@@ -418,6 +418,13 @@ Custom property | Description | Default
 			_saveTag(name) {
 				if (this.items.indexOf(name) == -1) {
 					this.push('items', name);
+					this.dispatchEvent(new CustomEvent('chip-added', {
+						detail: {
+							'chipLabel': name
+						},
+						composed: true,
+						bubbles: true
+					}));
 				}
 			}
 
