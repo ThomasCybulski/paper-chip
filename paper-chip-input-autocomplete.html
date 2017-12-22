@@ -321,11 +321,6 @@ Custom property | Description | Default
 			_onKeyEnter() {
 				if (this.additionalItems && (this._inputValue != '' && this._inputValue != undefined)) {
 					this._saveTag(this._inputValue);
-					this.dispatchEvent(new CustomEvent('chip-created', {
-						detail: {
-							chipLabel: this._inputValue
-						}
-					}));
 					this.required = false;
 					this.autoValidate = false;
 					this._inputValue = '';
@@ -418,6 +413,13 @@ Custom property | Description | Default
 			_saveTag(name) {
 				if (this.items.indexOf(name) == -1) {
 					this.push('items', name);
+					this.dispatchEvent(new CustomEvent('chip-created', {
+						detail: {
+							'chipLabel': name
+						},
+						composed: true,
+						bubbles: true
+					}));
 				}
 			}
 
