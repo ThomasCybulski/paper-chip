@@ -233,6 +233,14 @@ Custom property | Description | Default
 					},
 
 					/**
+					* True, when duplicates are allowed in combination with additionalItems.
+					*/
+					allowDuplicates: {
+						type: Boolean,
+						value: false
+					},
+
+					/**
 					* Set to true to mark the input as required.
 					*/
 					required: {
@@ -411,16 +419,23 @@ Custom property | Description | Default
 			}
 
 			_saveTag(name) {
-				if (this.items.indexOf(name) == -1) {
+				if (this.allowDuplicates) {
 					this.push('items', name);
-					this.dispatchEvent(new CustomEvent('chip-created', {
+					this._throwChipCreatedEvent(name);
+				} else if (this.items.indexOf(name) == -1) {
+					this.push('items', name);
+					this._throwChipCreatedEvent(name);
+				}
+			}
+
+			_throwChipCreatedEvent(name) {
+				this.dispatchEvent(new CustomEvent('chip-created', {
 						detail: {
 							'chipLabel': name
 						},
 						composed: true,
 						bubbles: true
 					}));
-				}
 			}
 
 			_hideAutocomplete() {
