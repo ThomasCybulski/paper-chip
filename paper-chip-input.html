@@ -17,6 +17,7 @@ The following custom properties and mixins are available for styling:
 
 Custom property | Description | Default
 ----------------|-------------|----------
+`--paper-chip-input-height | Height applied to the input field | `auto`
 `--paper-chip-input-focus-color` | Label and underline color when the input is focused | `--primary-color`
 `--paper-chip-input-font-size` | Fontsize applied to input field | `13px`
 `--paper-chip-input-label-font-size` | Fontsize applied to input label | `13px`
@@ -28,9 +29,10 @@ Custom property | Description | Default
 <dom-module id="paper-chip-input">
 	<template>
 		<style>
+
 			paper-input {
 
-				height:  var(--paper-chip-input-height, 59px);
+				height:  var(--paper-chip-input-height, auto);
 
 				--paper-input-container-focus-color: var(--paper-chip-input-focus-color, var(--primary-color));
 
