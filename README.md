@@ -134,6 +134,8 @@ $ polymer serve
 ```html
 <paper-chip-input label="+Add (Enter) -Delete (Backspace)" items='["one", "two", "three"]' closable></paper-chip-input>
 
+<paper-chip-input label="Input is readonly" items='["one", "two"]' readonly></paper-chip-input>
+
 <paper-chip-input always-float-label label="+Add (Enter) -Delete (Backspace)">
   <paper-chip label="Default Tag" slot="input"></paper-chip>
   <paper-chip label="Default Tag Closbale" closable slot="input"></paper-chip>
