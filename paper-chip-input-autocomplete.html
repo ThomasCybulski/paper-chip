@@ -365,9 +365,9 @@ Custom property | Description | Default
 				if (this.items.length != 0) {
 					let lastItemIndex = this.items.length - 1;
 					let lastItemname = this.items[lastItemIndex];
-
-					this._throwChipRemovedEvent(lastItemname);
+					
 					this.splice('items', -1, 1);
+					this._throwChipRemovedEvent(lastItemname);
 				}
 			}
 
