@@ -101,12 +101,12 @@ Custom property | Description | Default
 			}
 		</style>
 
-		<iron-a11y-keys target="paperInput" keys="enter" on-keys-pressed="_onKeyEnter"></iron-a11y-keys>
-		<iron-a11y-keys target="paperInput" keys="backspace" on-keys-pressed="_onKeyBackspace"></iron-a11y-keys>
-		<iron-a11y-keys target="paperInput" keys="esc" on-keys-pressed="_onKeyEsc"></iron-a11y-keys>
+		<iron-a11y-keys target="[[_paperInputElement]]" keys="enter" on-keys-pressed="_onKeyEnter"></iron-a11y-keys>
+		<iron-a11y-keys target="[[_paperInputElement]]" keys="backspace" on-keys-pressed="_onKeyBackspace"></iron-a11y-keys>
+		<iron-a11y-keys target="[[_paperInputElement]]" keys="esc" on-keys-pressed="_onKeyEsc"></iron-a11y-keys>
 
-		<iron-a11y-keys target="paperInput" keys="down" on-keys-pressed="_onKeyUpOrDown"></iron-a11y-keys>
-		<iron-a11y-keys target="paperInput" keys="up" on-keys-pressed="_onKeyUpOrDown"></iron-a11y-keys>
+		<iron-a11y-keys target="[[_paperInputElement]]" keys="down" on-keys-pressed="_onKeyUpOrDown"></iron-a11y-keys>
+		<iron-a11y-keys target="[[_paperInputElement]]" keys="up" on-keys-pressed="_onKeyUpOrDown"></iron-a11y-keys>
 
 		<div>
 			<paper-input id="paperInput"
@@ -312,6 +312,9 @@ Custom property | Description | Default
 					},
 					_paperInputWidth: {
 						type: Number
+					},
+					_paperInputElement: {
+						type: Object
 					}
 				};
 			}
@@ -320,6 +323,7 @@ Custom property | Description | Default
 				super.connectedCallback();
 				this._autoValidate = this.autoValidate;
 				this._required = this.required;
+				this._paperInputElement = this.$.paperInput;
 			}
 
 			_isEmpty(item) {

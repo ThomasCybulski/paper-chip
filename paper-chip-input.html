@@ -51,8 +51,8 @@ Custom property | Description | Default
 			}
 		</style>
 
-		<iron-a11y-keys target="paperInput" keys="enter" on-keys-pressed="_onKeyEnter"></iron-a11y-keys>
-		<iron-a11y-keys target="paperInput" keys="backspace" on-keys-pressed="_onKeyBackspace"></iron-a11y-keys>
+		<iron-a11y-keys target="[[_paperInputElement]]" keys="enter" on-keys-pressed="_onKeyEnter"></iron-a11y-keys>
+		<iron-a11y-keys target="[[_paperInputElement]]" keys="backspace" on-keys-pressed="_onKeyBackspace"></iron-a11y-keys>
 
 		<paper-input id="paperInput"
 					 always-float-label$="[[alwaysFloatLabel]]"
@@ -196,6 +196,9 @@ Custom property | Description | Default
 					},
 					_value: {
 						type: String
+					},
+					_paperInputElement: {
+						type: Object
 					}
 				};
 			}
@@ -214,7 +217,8 @@ Custom property | Description | Default
 			connectedCallback() {
 				super.connectedCallback();
 				this._autoValidate = this.autoValidate;
-				this._required = this.required;				
+				this._required = this.required;
+				this._paperInputElement = this.$.paperInput;
 			}
 			
 			_onKeyEnter() {
