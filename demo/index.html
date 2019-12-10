@@ -7,32 +7,55 @@
 
 	<title>paper-chip demo</title>
 
-	<script src="../../webcomponentsjs/webcomponents-loader.js"></script>
+ <script src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
 
-	<link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
-	<link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
-	<link rel="import" href="../../iron-icons/iron-icons.html">
-	<link rel="import" href="../../paper-input/paper-input.html">
-	<link rel="import" href="../../paper-toast/paper-toast.html">
-	<link rel="import" href="../paper-chip.html">
-	<link rel="import" href="../paper-chip-input.html">
-	<link rel="import" href="../paper-chip-input-autocomplete.html">
+ <script type="module" src="../node_modules/@polymer/iron-demo-helpers/demo-pages-shared-styles.js"></script>
+ <script type="module" src="../node_modules/@polymer/iron-demo-helpers/demo-snippet.js"></script>
+ <script type="module" src="../node_modules/@polymer/iron-icons/iron-icons.js"></script>
+ <script type="module" src="../node_modules/@polymer/paper-input/paper-input.js"></script>
+ <script type="module" src="../node_modules/@polymer/paper-toast/paper-toast.js"></script>
+ <script type="module" src="../paper-chip.js"></script>
+ <script type="module" src="../paper-chip-input.js"></script>
+ <script type="module" src="../paper-chip-input-autocomplete.js"></script>
 
-	<script src="states.js"></script>
+ <script src="./states.js"></script>
 
-	<style is="custom-style" include="demo-pages-shared-styles">
+	<!-- FIXME(polymer-modulizer):
+        These imperative modules that innerHTML your HTML are
+        a hacky way to be sure that any mixins in included style
+        modules are ready before any elements that reference them are
+        instantiated, otherwise the CSS @apply mixin polyfill won't be
+        able to expand the underlying CSS custom properties.
+        See: https://github.com/Polymer/polymer-modulizer/issues/154
+        -->
+    <script type="module">
+      const $_documentContainer = document.createElement('template');
+
+      $_documentContainer.innerHTML =
+          `<style is="custom-style" include="demo-pages-shared-styles">
 		#inputForValidation {
 			display: inline-block;
 			width: calc(100% - 75px);
 		}
-	</style>
+	</style>`;
+
+      document.head.appendChild($_documentContainer.content);
+    </script>
 </head>
 
 <body unresolved>
 
-	<paper-toast id="toast"></paper-toast>
+ <script type="module">
+    const $_documentContainer = document.createElement('template');
+    $_documentContainer.innerHTML = `<paper-toast id="toast"></paper-toast>`;
+    document.body.appendChild($_documentContainer.content);
+  </script>
 
-	<div class="vertical-section-container centered">
+ <script type="module">
+    const $_documentContainer = document.createElement('template');
+
+    $_documentContainer.innerHTML =
+        `<div class="vertical-section-container centered">
 		<h3>Basic paper-chip's</h3>
 		<demo-snippet>
 			<template>
@@ -44,13 +67,13 @@
 					</span>
 				</paper-chip>
 
-				<paper-chip label="Closable" closable></paper-chip>
+				<paper-chip label="Closable" closable=""></paper-chip>
 
-				<paper-chip label="Closable and image" closable>
+				<paper-chip label="Closable and image" closable="">
 					<img class="chip-image" slot="avatar" src="avatar.png" alt="Contact Person">
 				</paper-chip>
 
-				<paper-chip label="Closable and icon" closable>
+				<paper-chip label="Closable and icon" closable="">
 					<span class="chip-background" slot="avatar">
 						<iron-icon icon="icons:favorite"></iron-icon>
 					</span>
@@ -66,7 +89,7 @@
 
 				<paper-chip label="Custom background color" class="custom-background"></paper-chip>
 
-				<paper-chip label="No hover effect" no-hover></paper-chip>
+				<paper-chip label="No hover effect" no-hover=""></paper-chip>
 
 				<paper-chip label="Custom avatar background color" class="custom-avatar-background">
 					<span class="chip-background" slot="avatar">
@@ -106,22 +129,22 @@
 		<demo-snippet>
 			<template>
 
-				<paper-chip-input label="+Add (Enter) -Delete (Backspace)" items='["one", "two", "three"]' closable></paper-chip-input>
+				<paper-chip-input label="+Add (Enter) -Delete (Backspace)" items="[&quot;one&quot;, &quot;two&quot;, &quot;three&quot;]" closable=""></paper-chip-input>
 
-				<paper-chip-input label="Input is readonly" items='["one", "two"]' readonly></paper-chip-input>
+				<paper-chip-input label="Input is readonly" items="[&quot;one&quot;, &quot;two&quot;]" readonly=""></paper-chip-input>
 
-				<paper-chip-input always-float-label label="+Add (Enter) -Delete (Backspace)">
+				<paper-chip-input always-float-label="" label="+Add (Enter) -Delete (Backspace)">
 					<paper-chip label="Default Tag" slot="input"></paper-chip>
-					<paper-chip label="Default Tag Closable" closable slot="input"></paper-chip>
+					<paper-chip label="Default Tag Closable" closable="" slot="input"></paper-chip>
 				</paper-chip-input>
 
-				<paper-chip-input disabled label="+Add (Enter) -Delete (Backspace)" items='["one", "two", "three"]' closable></paper-chip-input>
+				<paper-chip-input disabled="" label="+Add (Enter) -Delete (Backspace)" items="[&quot;one&quot;, &quot;two&quot;, &quot;three&quot;]" closable=""></paper-chip-input>
 
-				<paper-chip-input label="paper-chip-input cannot be empty" required auto-validate error-message="needs some text!" closable></paper-chip-input>
+				<paper-chip-input label="paper-chip-input cannot be empty" required="" auto-validate="" error-message="needs some text!" closable=""></paper-chip-input>
 
-				<paper-chip-input label="this input will only let you type letters" auto-validate allowed-pattern="[a-zA-Z]" closable></paper-chip-input>
+				<paper-chip-input label="this input will only let you type letters" auto-validate="" allowed-pattern="[a-zA-Z]" closable=""></paper-chip-input>
 
-				<paper-chip-input id="inputForValidation" required label="this input is manually validated" pattern="[a-zA-Z]*" error-message="letters only!"></paper-chip-input>
+				<paper-chip-input id="inputForValidation" required="" label="this input is manually validated" pattern="[a-zA-Z]*" error-message="letters only!"></paper-chip-input>
 				<button onclick="validate()">Validate</button>
 
 			</template>
@@ -131,67 +154,78 @@
 		<demo-snippet>
 			<template>
 
-				<paper-chip-input-autocomplete id="basicAutocomplete" label="Search Item ... " closable></paper-chip-input-autocomplete>
+				<paper-chip-input-autocomplete id="basicAutocomplete" label="Search Item ... " closable=""></paper-chip-input-autocomplete>
 
-				<paper-chip-input-autocomplete id="autocompleteAdditionalItems" label="Search or add additional items (Enter) (Cannot be empty)"
-				 additional-items allow-duplicates required auto-validate error-message="needs some text!" closable></paper-chip-input-autocomplete>
+				<paper-chip-input-autocomplete id="autocompleteAdditionalItems" label="Search or add additional items (Enter) (Cannot be empty)" additional-items="" allow-duplicates="" required="" auto-validate="" error-message="needs some text!" closable=""></paper-chip-input-autocomplete>
 
 			</template>
 		</demo-snippet>
 
-	</div>
+	</div>`;
+
+    document.body.appendChild($_documentContainer.content);
+  </script>
 </body>
 
 </html>
-<script>
+<script type="module">
+  import '@polymer/iron-demo-helpers/demo-pages-shared-styles.js';
+  import '@polymer/iron-demo-helpers/demo-snippet.js';
+  import '@polymer/iron-icons/iron-icons.js';
+  import '@polymer/paper-input/paper-input.js';
+  import '@polymer/paper-toast/paper-toast.js';
+  import '../paper-chip.js';
+  import '../paper-chip-input.js';
+  import '../paper-chip-input-autocomplete.js';
 
-	function validate() {
-		document.getElementById('inputForValidation').validate();
-	}
+  function validate() {
+    document.getElementById('inputForValidation').validate();
+  }
 
-	window.addEventListener('WebComponentsReady', function () {
+  let allPaperChips = document.querySelectorAll('paper-chip[closable]')
 
-		let allPaperChips = document.querySelectorAll('paper-chip[closable]')
+  allPaperChips.forEach(function(paperChip) {
+    paperChip.addEventListener('chip-removed', function() {
+      let toast = document.querySelector('paper-toast');
+      toast.text = 'Removed paper-chip with label "' + paperChip.label + '"';
+      toast.open();
+    });
+  });
 
-		allPaperChips.forEach(function (paperChip) {
-			paperChip.addEventListener("chip-removed", function () {
-				let toast = document.querySelector('paper-toast');
-				toast.text = 'Removed paper-chip with label "' + paperChip.label + '"';
-				toast.open();
-			});
-		});
+  let allPaperChipInputs = document.querySelectorAll('paper-chip-input')
 
-		let allPaperChipInputs = document.querySelectorAll('paper-chip-input')
+  allPaperChipInputs.forEach(function(paperChipInput) {
+    paperChipInput.addEventListener('chip-removed', function(event) {
+      let toast = document.querySelector('paper-toast');
+      toast.text =
+          'Removed paper-chip with label "' + event.detail.chipLabel + '"';
+      toast.open();
+    });
 
-		allPaperChipInputs.forEach(function (paperChipInput) {
-			paperChipInput.addEventListener("chip-removed", function (event) {
-				let toast = document.querySelector('paper-toast');
-				toast.text = 'Removed paper-chip with label "' + event.detail.chipLabel + '"';
-				toast.open();
-			});
+    paperChipInput.addEventListener('chip-created', function(event) {
+      let toast = document.querySelector('paper-toast');
+      toast.text =
+          'paper-chip created with label "' + event.detail.chipLabel + '"';
+      toast.open();
+    });
+  });
 
-			paperChipInput.addEventListener("chip-created", function (event) {
-				let toast = document.querySelector('paper-toast');
-				toast.text = 'paper-chip created with label "' + event.detail.chipLabel + '"';
-				toast.open();
-			});
-		});
+  let allPaperChipInputAutocomplete =
+      document.querySelectorAll('paper-chip-input-autocomplete')
 
-		let allPaperChipInputAutocomplete = document.querySelectorAll('paper-chip-input-autocomplete')
+  allPaperChipInputAutocomplete.forEach(function(paperChipInputAutocomplete) {
+    paperChipInputAutocomplete.addEventListener('chip-removed', function(event) {
+      let toast = document.querySelector('paper-toast');
+      toast.text =
+          'Removed paper-chip with label "' + event.detail.chipLabel + '"';
+      toast.open();
+    });
+  });
 
-		allPaperChipInputAutocomplete.forEach(function (paperChipInputAutocomplete) {
-			paperChipInputAutocomplete.addEventListener("chip-removed", function (event) {
-				let toast = document.querySelector('paper-toast');
-				toast.text = 'Removed paper-chip with label "' + event.detail.chipLabel + '"';
-				toast.open();
-			});
-		});
+  let basicAutocompleteElement = document.getElementById('basicAutocomplete');
+  basicAutocompleteElement.source = states;
 
-		let basicAutocompleteElement = document.getElementById('basicAutocomplete');
-		basicAutocompleteElement.source = states;
-
-		let autocompleteAdditionalItems = document.getElementById('autocompleteAdditionalItems');
-		autocompleteAdditionalItems.source = states;
-	});
-
+  let autocompleteAdditionalItems =
+      document.getElementById('autocompleteAdditionalItems');
+  autocompleteAdditionalItems.source = states;
 </script>

@@ -7,10 +7,8 @@
 
 	<title>paper-chip-input test</title>
 
-	<script src="../../webcomponentsjs/webcomponents-loader.js"></script>
-	<script src="../../web-component-tester/browser.js"></script>
-
-	<link rel="import" href="../paper-chip-input.html">
+  <script src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+  <script src="../node_modules/wct-browser-legacy/browser.js"></script>
 </head>
 
 <body>
@@ -33,42 +31,36 @@
 		</template>
 	</test-fixture>
 
-	<script>
-		suite('paper-chip-input', function () {
+ <script type="module">
+    import '../paper-chip-input.js';
+    suite('paper-chip-input', function() {
+      test('label is displayed', function() {
+        document.addEventListener('WebComponentsReady', function() {
+          const element = fixture('label');
 
-			test('instantiating the element works', function () {
-				assert.equal(PaperChipInput.is, 'paper-chip-input');
-			});
+          assert.equal(element.label, 'test');
+        });
+      });
 
-			test('label is displayed', function () {
-				document.addEventListener('WebComponentsReady', function () {
-					const element = fixture('label');
+      test('closable items are displayed', function(done) {
+        var element = fixture('closable items');
+        var paperChips = ['One', 'Two', 'Three'];
 
-					assert.equal(element.label, 'test');
-				});
-			});
+        element.items = paperChips;
 
-			test('closable items are displayed', function (done) {
+        flush(function() {
+          assert.equal(
+              element.shadowRoot.querySelector('#slot2')
+                  .querySelectorAll('paper-chip')
+                  .length,
+              paperChips.length);
+          done();
+        });
 
-				var element = fixture('closable items');
-				var paperChips = [
-					'One',
-					'Two',
-					'Three'
-				];
-
-				element.items = paperChips;
-
-				flush(function () {
-					assert.equal(element.shadowRoot.querySelector('#slot2').querySelectorAll('paper-chip').length, paperChips.length);
-					done();
-				});
-
-				assert.equal(element.label, 'test');
-			});
-
-		});
-	</script>ti
+        assert.equal(element.label, 'test');
+      });
+    });
+  </script>
 </body>
 
 </html>
